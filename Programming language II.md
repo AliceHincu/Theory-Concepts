@@ -1,4 +1,4 @@
-# Programming language
+# Design & implementation
 In computing, a **programming language specification** (or standard or definition) is a documentation artifact that defines a programming language so that users and 
 implementors can agree on what programs in that language mean. Specifications are typically detailed and formal, and primarily used by implementors, with users referring to 
 them in case of ambiguity; the C++ specification is frequently cited by users, for instance, due to the complexity. Related documentation includes a programming language 
@@ -10,7 +10,33 @@ and compilation. Interpretation is a method of executing a program. The program 
 Compilation is a different process, where a compiler reads in a program, but instead of running the program, the compiler translates it into some other language, such as 
 bytecode or machine code. The translated code may either be directly executed by hardware, or serve as input to another interpreter or another compiler.
 
-## Types of pragramming languages 
+# Programming paradigms
+**Programming paradigms** are a way to classify programming languages based on their features. Languages can be classified into multiple paradigms.
+
+Some paradigms are concerned mainly with implications for the execution model of the language, such as allowing side effects, or whether the sequence of operations is defined 
+by the execution model. Other paradigms are concerned mainly with the way that code is organized, such as grouping a code into units along with the state that is modified by 
+the code. Yet others are concerned mainly with the style of syntax and grammar.
+
+Common programming paradigms include:
+
+<ul>
+  <li> <strong>imperative</strong> in which the programmer instructs the machine how to change its state(you describe the algorithm step-by-step, at various degrees of abstraction)
+    <ul>
+      <li><strong>procedural</strong> which groups instructions into procedures,</li>
+      <li><strong>object-oriented</strong> which groups instructions with the part of the state they operate on,</li>
+    </ul>
+  </li>
+  <li><strong>declarative</strong> in which the programmer merely declares properties of the desired result, but not how to compute it(In the declarative programming paradigm, you describe a result or a goal, and you get it via a "black box". The opposite of imperative)
+    <ul>
+      <li><strong>functional</strong> in which the desired result is declared as the value of a series of function applications,</li>
+      <li><strong>logic</strong> in which the desired result is declared as the answer to a question about a system of facts and rules,</li>
+      <li><strong>mathematical</strong> in which the desired result is declared as the solution of an optimization problem</li>
+      <li><strong>reactive</strong> in which the desired result is declared with data streams and the propagation of change</li>
+    </ul>
+  </li>
+</ul>
+
+## Types of programming languages 
 
 ### Assembly languages
 
