@@ -1,0 +1,79 @@
+# High vs low-level programming
+
+The level indicates the amount of abstraction between **programming language** and **machine language** (which is a set of instructions executed directly by CPU and is the 
+only language a computer is capable of understanding). 
+
+A **low-level programming** language is a programming language that provides little to no abstraction of programming concepts and is very close to hardware 
+(Assembly language or maschine code). Programs written in low-level language are directly executable on the computing hardware without any compiler or interpreter. 
+With low-level lagnuages, the programmer has a complete control over things like memory allocation, which makes them very efficient. Because of these, they are great 
+for writing operating systems/firmware. \
+P.S: _abstractie = a nu lua in considerare // abastraction = does not take into consideration_
+
+Because **high-level languages** are closer to human language, and because they have a very strong abstraction, code written in high-level programming languages is easier 
+to read, write and maintain. Programmrs don't have to think anymore about things like registers or memory management. Instead, they can rely on functions, objects or
+garbage collector, and other abstractions.
+
+## Machine code
+
+In computer programming, **machine code** is any low-level programming language, consisting of machine language instructions, which is used to control a computer's 
+central processing unit (CPU). Each instruction causes the CPU to perform a very specific task, such as a load, a store, a jump, or an arithmetic logic unit (ALU) operation 
+on one or more units of data in the CPU's registers or memory.
+
+Machine code is a strictly numerical language which is designed to run as fast as possible, and may be considered as the lowest-level representation of a compiled or 
+assembled computer program or as a primitive and hardware-dependent programming language. While it is possible to write programs directly in machine code, managing individual 
+bits and calculating numerical addresses and constants manually is tedious and error-prone. For this reason, programs are very rarely written directly in machine code in 
+modern contexts, but may be done for low level debugging, program patching (especially when assembler source is not available) and assembly language disassembly.
+
+The majority of practical programs today are written in higher-level languages or assembly language. The source code is then translated to executable machine code by utilities 
+such as **compilers**, **assemblers**, and **linkers**, with the important exception of interpreted programs, which are not translated into machine code. However, the 
+**interpreter** itself, which may be seen as an executor or processor performing the instructions of the source code, typically consists of directly executable machine code 
+(generated from assembly or high-level language source code).
+
+Machine code is by definition the lowest level of programming detail visible to the programmer, but internally many processors use microcode or optimise and transform machine 
+code instructions into sequences of micro-ops. This is not generally considered to be a machine code.
+
+[Read more](https://en.wikipedia.org/wiki/Machine_code)
+
+## Compiler
+
+In computing, a **compiler** is a computer program that translates computer code written in one programming language (the source language) into another language (the target 
+language). The name "compiler" is primarily used for programs that translate source code from a high-level programming language to a lower level language (e.g. assembly 
+language, object code, or machine code) to create an executable program
+
+Read more: [1](https://en.wikipedia.org/wiki/Machine_code), [2](https://whatis.techtarget.com/definition/compiler)
+
+## Assembler
+
+An **assembler** is a type of computer program that interprets software programs written in assembly language into machine language, code and instructions that can be executed 
+by a computer. An assembler enables software and application developers to access, operate and manage a computer's hardware architecture and components. An assembler is 
+sometimes referred to as the compiler of assembly language. It also provides the services of an interpreter.
+
+An assembler primarily serves as the bridge between symbolically coded instructions written in assembly language and the computer processor, memory and other computational 
+components. An assembler works by assembling and converting the source code of assembly language into object code or an object file that constitutes a stream of zeros and 
+ones of machine code, which are directly executable by the processor.
+
+[Read more](https://en.wikipedia.org/wiki/Assembly_language#Assembler)
+
+## Linker
+
+In computing, a **linker** or **link editor** is a computer system program that takes one or more object files (generated by a compiler or an assembler) and combines them into
+a single executable file, library file, or another "object" file. A simpler version that writes its output directly to memory is called the loader, though loading is typically 
+considered a separate process.
+
+[Read more](https://en.wikipedia.org/wiki/Linker_(computing))
+
+## Interpreter
+
+In computer science, an **interpreter** is a computer program that directly executes instructions written in a programming or scripting language, without requiring them 
+previously to have been compiled into a machine language program.
+
+[Read more](https://en.wikipedia.org/wiki/Interpreter_(computing))
+
+## Object File
+
+An **object file** is a computer file containing object code, that is, machine code output of an assembler or compiler. The object code is usually relocatable, 
+and not usually directly executable. There are various formats for object files, and the same machine code can be packaged in different object file formats. 
+An object file may also work like a shared library.
+
+[Read more](https://en.wikipedia.org/wiki/Object_file)
+
