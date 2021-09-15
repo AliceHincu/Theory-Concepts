@@ -3,5 +3,7 @@ I have created this repository for myself, but you are free to read anything fro
 
 ## Content
 
-[Programming language](https://github.com/913AliceHincu/Theory-Concepts/blob/main/Programming%20language.md) - high vs low-level, machine code, compiler, assembler, linker, interpreter, object file
+[Programming language I](https://github.com/913AliceHincu/Theory-Concepts/blob/main/Programming%20language.md) - high vs low-level, machine code, compiler, assembler, linker, interpreter, object file \
+[Programming language II](https://github.com/913AliceHincu/Theory-Concepts/blob/main/Programming%20language%20II.md) - design & implementation, programming paradigms, types of programming languages, IDE \
+[Basic terms I](https://github.com/913AliceHincu/Theory-Concepts/blob/main/Basic%20terms%20I.md) - namespace, pass by value, pass by reference, OOP, class, instance, object, encapsulation, data abstraction, interface, ADT
 
