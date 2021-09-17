@@ -9,3 +9,4 @@ I have created this repository for myself, but you are free to read anything fro
 * [Programming principals I - Single-responsibility principle](https://github.com/913AliceHincu/Theory-Concepts/blob/main/Programming%20principals%20I%20-%20Single-responsibility%20principle.md) 
 * [Programming principals II - Separation of concerns](https://github.com/913AliceHincu/Theory-Concepts/blob/main/Programming%20principals%20II%20-%20Separation%20of%20concerns.md) 
 * [GRASP](https://github.com/913AliceHincu/Theory-Concepts/blob/main/GRASP.md) - GRASP + GRASP in layered architecture, high cohesion, low coupling, information expert, controller, protected variations, creator, pure fabrications
+* [Domain driven design](https://github.com/913AliceHincu/Theory-Concepts/blob/main/Domain%20driven%20design.md) - DDD, entity, value object, aggregates, DTO
