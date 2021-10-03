@@ -36,17 +36,16 @@ This is the only layer that directly **interacts with data from the user**. Soft
 
 On the short: **the OSI model defines the application layer as only the interface responsible for communicating with host-based and user-facing applications.**
 
-## Layer 6: The presentation layer
-
-This layer is primarily responsible for preparing data so that it can be used by the application layer; in other words, layer 6 makes the data presentable for applications to consume. The presentation layer is responsible for **translation**, **encryption**, and **compression** of data.
-
-Two communicating devices communicating may be using different encoding methods, so layer 6 is responsible for **translating** incoming data into a syntax that the application layer of the receiving device can understand.
-
-If the devices are communicating over an encrypted connection, layer 6 is responsible for **adding the encryption on the sender’s en**d as well as **decoding the encryption on the receiver's end** so that it can present the application layer with unencrypted, readable data.
-
-Finally the presentation layer is also responsible for **compressing data** it receives from the application layer before delivering it to layer 5. This helps i**mprove the speed and efficiency** of communication by minimizing the amount of data that will be transferred.
-
+# Layer 6: The presentation layer
 ![](https://images.ctfassets.net/slt3lc6tev37/60dPoRIz0Es5TjDDncEp2M/7ad742131addcbe5dc6baa16a93bf189/6-presentation-layer.svg)
+
+The primary goal of this layer is to **take care of the syntax and semantics of the information exchanged** between two communicating systems. Presentation layer takes care that the data is sent in such a way that the receiver will understand the information(data) and will be able to use the data. Languages(syntax) can be different of the two communicating systems. Under this condition presentation layer plays a role translator. In other words, layer 6 makes the data presentable for applications to consume. The presentation layer is responsible for **translation**, **encryption**, and **compression** of data.
+
+### Functions of Presentation Layer
+* **Translation**: Before being transmitted, information in the form of characters and numbers should be changed to bit streams. The presentation layer is responsible for interoperability between encoding methods as different computers use different encoding methods. It translates data between the formats the network requires and the format the computer. Basically: **Two communicating devices communicating may be using different encoding methods, so layer 6 is responsible for translating incoming data into a syntax that the application layer of the receiving device can understand**.
+* **Encryption**: It carries out encryption at the transmitter and decryption at the receiver. If the devices are communicating over an encrypted connection, layer 6 is responsible for **adding the encryption on the sender’s end** as well as **decoding the encryption on the receiver's end** so that it can present the application layer with unencrypted, readable data.
+* **Compression**: It carries out data compression to reduce the bandwidth of the data to be transmitted. The primary role of Data compression is to reduce the number of bits to be transmitted. It is important in transmitting multimedia such as audio, video, text etc. This helps **improve the speed and efficiency** of communication by minimizing the amount of data that will be transferred.
+
 
 ## Layer 5: The session layer
 This is the layer responsible for opening and closing communication between the two devices. The time between when the communication is opened and closed is known as the session. The session layer ensures that the session stays open long enough to transfer all the data being exchanged, and then promptly closes the session in order to avoid wasting resources.
