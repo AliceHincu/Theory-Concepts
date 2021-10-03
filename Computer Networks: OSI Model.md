@@ -66,11 +66,28 @@ The session layer also synchronizes data transfer with checkpoints. For example,
 Main idea: **The Session layer is used to establish, maintain and synchronizes the interaction between communicating devices**.
 
 ## Layer 4: The transport layer
-Layer 4 is responsible for **end-to-end communication between the two devices**. This includes taking data from the session layer and breaking it up into chunks called segments before sending it to layer 3. The transport layer on the receiving device is responsible for reassembling the segments into data the session layer can consume.
+![](https://images.ctfassets.net/slt3lc6tev37/76JgEjycZl12c90UByKfJA/d6578bcd7b151c489e61f42227a45713/3-network-layer.svg)
+
+Layer 4 is responsible for **end-to-end communication between the two devices**. This includes taking data from the session layer and breaking it up into chunks called **segments** before sending it to layer 3. The transport layer on the receiving device is responsible for reassembling the segments into data the session layer can consume.
 
 The transport layer is also responsible for flow control and error control. Flow control determines an optimal speed of transmission to ensure that a sender with a fast connection doesn’t overwhelm a receiver with a slow connection. The transport layer performs error control on the receiving end by ensuring that the data received is complete, and requesting a retransmission if it isn’t.
 
-![](https://images.ctfassets.net/slt3lc6tev37/76JgEjycZl12c90UByKfJA/d6578bcd7b151c489e61f42227a45713/3-network-layer.svg)
+### Services of Transport Layer
+* **End-to-end delivery**: The transport layer transmits the entire message to the destination. Therefore, it ensures the end-to-end delivery of an entire message from a source to the destination.
+* **Addressing**: The transport layer provides the user address which is specified as a station or port. The port variable represents a particular TS user of a specified station known as a Transport Service access point (TSAP). Each station has only one transport entity.
+* **Reliable delivery**: The transport layer provides reliability services by retransmitting the lost and damaged packets. It has 4 aspects:
+   * **Error control**: In reality, no transmission will be 100 percent error-free delivery. Therefore, transport layer protocols are designed to provide error-free transmission.
+   * **Sequence control**: On the sending end, the transport layer is responsible for ensuring that the packets received from the upper layers can be used by the lower layers. On the receiving end, it ensures that the various segments of a transmission can be correctly reassembled.
+   * **Loss control**:  The transport layer ensures that all the fragments of a transmission arrive at the destination, not some of them. On the sending end, all the fragments of transmission are given sequence numbers by a transport layer. These sequence numbers allow the receiver's transport layer to identify the missing segment.
+   * **Duplication control**: The transport layer guarantees that no duplicate data arrive at the destination. Sequence numbers are used to identify the lost packets; similarly, it allows the receiver to identify and discard duplicate segments.
+* **Flow control**: Flow control is used to prevent the sender from overwhelming the receiver. If the receiver is overloaded with too much data, then the receiver discards the packets and asking for the retransmission of packets. This increases network congestion and thus, reducing the system performance.
+* **Multiplexing**: The transport layer uses the multiplexing to improve transmission efficiency.
+   * **Upward multiplexing**: Upward multiplexing means multiple transport layer connections use the same network connection. To make more cost-effective, the transport layer sends several transmissions bound for the same destination along the same path; this is achieved through upward multiplexing.
+   * **Downward multiplexing**: Downward multiplexing means one transport layer connection uses the multiple network connections. Downward multiplexing allows the transport layer to split a connection among several paths to improve the throughput. This type of multiplexing is used when networks have a low or slow capacity.
+
+### Functions of Transport Layer
+
+
 
 ## Layer 3: The network layer
 The network layer is responsible for **facilitating data transfer between two different networks**. If the two devices communicating are on the same network, then the network layer is unnecessary. The network layer breaks up segments from the transport layer into smaller units, called packets, on the sender’s device, and reassembling these packets on the receiving device. The network layer also finds the best physical path for the data to reach its destination; this is known as routing.
