@@ -34,7 +34,7 @@ This is the only layer that directly **interacts with data from the user**. Soft
 | DNS | Domain Name System | The Domain Name System (DNS) is the phonebook of the Internet. Humans access information online through domain names, like nytimes.com or espn.com. Web browsers interact through Internet Protocol (IP) addresses. DNS translates domain names to IP addresses so browsers can load Internet resources. |
 
 
-On the short: **the OSI model defines the application layer as only the interface responsible for communicating with host-based and user-facing applications.**
+Main idea: **the OSI model defines the application layer as only the interface responsible for communicating with host-based and user-facing applications.**
 
 # Layer 6: The presentation layer
 ![](https://images.ctfassets.net/slt3lc6tev37/60dPoRIz0Es5TjDDncEp2M/7ad742131addcbe5dc6baa16a93bf189/6-presentation-layer.svg)
@@ -47,10 +47,23 @@ The primary goal of this layer is to **take care of the syntax and semantics of 
 * **Compression**: It carries out data compression to reduce the bandwidth of the data to be transmitted. The primary role of Data compression is to reduce the number of bits to be transmitted. It is important in transmitting multimedia such as audio, video, text etc. This helps **improve the speed and efficiency** of communication by minimizing the amount of data that will be transferred.
 
 
-## Layer 5: The session layer
+# Layer 5: The session layer
 This is the layer responsible for opening and closing communication between the two devices. The time between when the communication is opened and closed is known as the session. The session layer ensures that the session stays open long enough to transfer all the data being exchanged, and then promptly closes the session in order to avoid wasting resources.
 
 The session layer also synchronizes data transfer with checkpoints. For example, if a 100 megabyte file is being transferred, the session layer could set a checkpoint every 5 megabytes. In the case of a disconnect or a crash after 52 megabytes have been transferred, the session could be resumed from the last checkpoint, meaning only 50 more megabytes of data need to be transferred. Without the checkpoints, the entire transfer would have to begin again from scratch.
+
+### Functions of Session Layer
+* **Dialog Control** : This layer allows two systems to start communication with each other in half-duplex or full-duplex.
+* **Token Management**: This layer prevents two parties from attempting the same critical operation at the same time.
+* **Synchronization** : This layer allows a process to add checkpoints which are considered as synchronization points into stream of data. Example: If a system is sending a file of 800 pages, adding checkpoints after every 50 pages is recommended. This ensures that 50 page unit is successfully received and acknowledged. This is beneficial at the time of crash as if a crash happens at page number 110; there is no need to retransmit 1 to100 pages.
+
+### Session Layer Protocols
+| Abreviation | Full Name | Description |
+| -- | -- | -- |
+| ISO 8327 | OSI protocol suite session-layer protocol | In case of a connection loss this protocol may try to recover the connection. If a connection is not used for a long period, the session-layer protocol may close it and re-open it. It provides for either full duplex or half-duplex operation and provides synchronization points in the stream of exchanged messages. |
+| ZIP |  Zone Information Protocol | The Zone Information Protocol (ZIP) provides applications and processes with access to zone names. A zone is a logical grouping of nodes in an AppleTalk internet, and each zone is identified by a name. A zone name is typically used to identify an affiliation between a group of nodes, such as a group of nodes belonging to a particular department within an organization. |
+
+Main idea: **The Session layer is used to establish, maintain and synchronizes the interaction between communicating devices**.
 
 ## Layer 4: The transport layer
 Layer 4 is responsible for **end-to-end communication between the two devices**. This includes taking data from the session layer and breaking it up into chunks called segments before sending it to layer 3. The transport layer on the receiving device is responsible for reassembling the segments into data the session layer can consume.
