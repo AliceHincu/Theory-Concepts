@@ -85,19 +85,45 @@ The transport layer is also responsible for flow control and error control. Flow
    * **Upward multiplexing**: Upward multiplexing means multiple transport layer connections use the same network connection. To make more cost-effective, the transport layer sends several transmissions bound for the same destination along the same path; this is achieved through upward multiplexing.
    * **Downward multiplexing**: Downward multiplexing means one transport layer connection uses the multiple network connections. Downward multiplexing allows the transport layer to split a connection among several paths to improve the throughput. This type of multiplexing is used when networks have a low or slow capacity.
 
-### Functions of Transport Layer
+### Transport Layer Protocols: TCP vs UDP
+| TCP(Transmission control protocol) | UDP(User datagram Protocol) |
+| -- | -- |
+| connection-oriented services | conectionless protocol |
+| guaranteed delivery, flow control | no flow control, no reliability. Allows missing packets, the sender is unable to know whether a packet has been received |
+| sends packets in order so they can be stiched back together easily | packets don't necessarily arrive in order |
+| slow, requires more resources | faster and needs fewer resources |
+| best suited for apps that need high reliability and transmission time is relatively less critical | better suited for applications that need fast, efficient transmission, such as games |
+
+[Read more about tcp and udp](https://www.lifesize.com/en/blog/tcp-vs-udp/)
 
 
+# Layer 3: The network layer
+The network layer is responsible for **facilitating data transfer between two different networks**. If the two devices communicating are on the same network, then the network layer is unnecessary. The network layer breaks up segments from the transport layer into smaller units, called packets/**datagrams**, on the sender’s device, and reassembling these packets on the receiving device. The network layer also finds the best physical path for the data to reach its destination; this is known as routing. 
 
-## Layer 3: The network layer
-The network layer is responsible for **facilitating data transfer between two different networks**. If the two devices communicating are on the same network, then the network layer is unnecessary. The network layer breaks up segments from the transport layer into smaller units, called packets, on the sender’s device, and reassembling these packets on the receiving device. The network layer also finds the best physical path for the data to reach its destination; this is known as routing.
+Layer 4 protocols (tcp or udp) passes a segment and a destination address to the network layer. **This layer provides the service of delivery**. It includes the **IP + routing protocols** that determine the routes that datagrams take between sources and destinations. The network layer translates the logical addresses into physical addresses.
 
-## Layer 2: Data-link layer
-This layer is the protocol layer that transfers data between nodes on a network segment across the physical layer.[1] The data link layer provides the functional and procedural means to transfer data between network entities and may also provide the means to detect and possibly correct errors that can occur in the physical layer.
+### Functions of the Network Layer
+* **Routing**: When a packet reaches the router's input link, the router will move the packets to the router's output link. For example, a packet from S1 to R1 must be forwarded to the next router on the path to S2.
+* **Logical Addressing**: The data link layer implements the physical addressing and network layer implements the logical addressing. Logical addressing is also used to distinguish between source and destination system. The network layer adds a header to the packet which includes the logical addresses of both the sender and the receiver.
+* **Internetworking**: This is the main role of the network layer that it provides the logical connection between different types of networks.
+* **Fragmentation**: The fragmentation is a process of breaking the packets into the smallest individual data units that travel through different networks.
 
-The data link layer is very similar to the network layer, except the data link layer facilitates data transfer between two devices on the SAME network. The data link layer takes packets from the network layer and breaks them into smaller pieces called frames. Like the network layer, the data link layer is also responsible for flow control and error control in intra-network communication (The transport layer only does flow control and error control for inter-network communications).
+### Services of the Network Layer
+* **Guaranteed delivery**: This layer provides the service which guarantees that the packet will arrive at its destination.
+* **Guaranteed delivery with bounded delay**: This service guarantees that the packet will be delivered within a specified host-to-host delay bound.
+* **In-Order packets**: This service ensures that the packet arrives at the destination in the order in which they are sent.
+* **Guaranteed max jitter**: This service ensures that the amount of time taken between two successive transmissions at the sender is equal to the time between their receipt at the destination.
+* **Security services**: The network layer provides security by using a session key between the source and destination host. The network layer in the source host encrypts the payloads of datagrams being sent to the destination host. The network layer in the destination host would then decrypt the payload. In such a way, the network layer maintains the data integrity and source authentication services.
 
-## Layer 1: The physical layer
+
+# Layer 2: Data-link layer
+This layer is the protocol layer that transfers data between nodes(host or router) on a network segment across the physical layer. The data link layer provides the functional and procedural means to transfer data between network entities and may also provide the means to detect and possibly correct errors that can occur in the physical layer.
+
+The data link layer is very similar to the network layer, except the data link layer facilitates data transfer between two devices on the **SAME** network. The data link layer takes packets from the network layer and breaks them into smaller pieces called **frames**. Like the network layer, the data link layer is also responsible for flow control and error control in intra-network communication (The transport layer only does flow control and error control for inter-network communications).
+
+Examples of protocols: Wi-fi, Ethernet
+
+# Layer 1: The physical layer
 This layer includes the physical equipment involved in the data transfer, such as the cables and switches. This is also the layer where the data gets converted into a bit stream, which is a string of 1s and 0s. The physical layer of both devices must also agree on a signal convention so that the 1s can be distinguished from the 0s on both devices.
 
 # Example
@@ -108,3 +134,10 @@ The data will then hit the sender’s **transportation layer where it will be se
 Once Ms. Palmer’s computer receives the bit stream through a physical medium (such as her wifi), the data will flow through the same series of layers on her device, but in the opposite order. First the physical layer will convert the bitstream from 1s and 0s into frames that get passed to the data link layer. The data link layer will then reassemble the frames into packets for the network layer. The network layer will then make segments out of the packets for the transport layer, which will reassemble the segments into one piece of data.
 
 The data will then flow into the receiver's session layer, which will pass the data along to the presentation layer and then end the communication session. The presentation layer will then remove the compression and pass the raw data up to the application layer. The application layer will then feed the human-readable data along to Ms. Palmer’s email software, which will allow her to read Mr. Cooper’s email on her laptop screen.
+
+
+# Read more
+* [The book](https://eclass.teicrete.gr/modules/document/file.php/TP326/%CE%98%CE%B5%CF%89%CF%81%CE%AF%CE%B1%20(Lectures)/Computer_Networking_A_Top-Down_Approach.pdf)
+* [Osi Model](https://osi-model.com/)
+* [javatpoint](https://www.javatpoint.com/osi-model)
+* [a little simplfied](https://www.studytonight.com/computer-networks/complete-osi-model)
