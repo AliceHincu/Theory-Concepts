@@ -21,4 +21,5 @@ I have created this repository for myself, but you are free to read anything fro
     * [OSI Model](https://github.com/913AliceHincu/Theory-Concepts/blob/main/Computer%20Networks:%20OSI%20Model.md) - the 7 layers
     * [Devices](https://github.com/913AliceHincu/Theory-Concepts/blob/main/Computer%20Networks:%20Devices.md) - Analog modem, Hub, Switch, Wireless Access Point, Router
   * Databases
-    * [Not done]
+    * [Databases I](https://github.com/913AliceHincu/Theory-Concepts/blob/main/Databases%20I.md) - Discussion: Files vs DBMS
+    * [Databases II]
