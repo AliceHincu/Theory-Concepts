@@ -21,24 +21,4 @@ Examples of DDM:
 * **Relational Model**
 
 
-## Entity-Relationship Model
-![](https://www.tutorialspoint.com/dbms/images/er_model_intro.png)
-Entity-Relationship (ER) Model is based on the notion of real-world entities and relationships among them. While formulating real-world scenario into the database model, the ER Model creates entity set, relationship set, general attributes and constraints.
-
-ER Model is best used for the conceptual design of a database.
-
-ER Model is based on:
-* **Entities** and their attributes.
-* **Relationships** among entities.
-
-**Entity** − An entity in an ER Model is a real-world entity having properties called attributes. Every attribute is defined by its set of values called domain. For example, in a school database, a student is considered as an entity. Student has various attributes like name, age, class, etc. \
-**Relationship** − The logical association among entities is called relationship. Relationships are mapped with entities in various ways. Mapping cardinalities define the number of association between two entities.
-
-Mapping cardinalities:
-* one to one
-* one to many
-* many to one
-* many to many
-
-
 Read more: [1](https://www.tutorialspoint.com/dbms/dbms_data_models.htm)
