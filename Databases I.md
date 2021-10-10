@@ -23,13 +23,13 @@ Database Management System is basically a software that manages the collection o
 - difficult to retreive data meeting certain criteria, difficult to change data
 - what if we also want to specify corectness constrains? Integrity constrains are checked in the program...we need to write code for this.
 - data concurrently accessed by multiple users (updates to be applied consistently), questions need quick answears, restrict access to some parts of the data. So, much more
-data + many more user => more challenges => a collection of files is not enough
------ CHALLENGES: 
+data + many more users => more challenges => a collection of files is not enough \
+----- CHALLENGES: \
 - there are no adequate security procedures
 - concurrent data access control is a challenge
 - recovery mechanisms -> restoring data to a consistent state when the system fails. Ex: a bank transaction, transferring money from account A1 to account A2. There are 2 update
-operations here:taking money from account A1 and adding money to account A2. If there is a power failure between these, money should be restored to A1.
-- operations on data can be quite epensive.
+operations here: taking money from account A1 and adding money to account A2. If there is a power failure between these, money should be restored to A1.
+- operations on data can be quite expensive.
 **THEY ARE USEFUL FOR SMALL AMOUNT OF DATA AND ONE USER.**
 
 ### Advantages of DBMS over File system
