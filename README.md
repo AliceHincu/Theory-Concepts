@@ -24,4 +24,4 @@ I have created this repository for myself, but you are free to read anything fro
     * [Databases I](https://github.com/913AliceHincu/Theory-Concepts/blob/main/Databases%20I.md) - Discussion: Files vs DBMS
     * [Databases II](https://github.com/913AliceHincu/Theory-Concepts/blob/main/Databases%20II.md) - Database, Data description model (DDM) 
       * [Relational Model](https://github.com/913AliceHincu/Theory-Concepts/blob/main/Relational%20Model.md)
-      * [Entity-Relationship Model]
+      * [Entity-Relationship Model](https://github.com/913AliceHincu/Theory-Concepts/blob/main/Entity-Relationship%20Model.md)
