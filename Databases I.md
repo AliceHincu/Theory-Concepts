@@ -38,9 +38,9 @@ Redundancy is the concept of repetition of data i.e. each data may have more tha
 * **Data sharing –** 
 **File system does not allow sharing of data** or sharing is too complex. Whereas **in DBMS, data can be shared easily** due to centralized system.
 * **Data concurrency –**
-Concurrent access to data means more than one user is accessing the same data at the same time. Anomalies occur when changes made by one user gets lost because of changes made by other user. F**ile system does not provide any procedure to stop anomalies**. Whereas **DBMS provides a locking system to stop anomalies to occur**.
+Concurrent access to data means more than one user is accessing the same data at the same time. Anomalies occur when changes made by one user gets lost because of changes made by other user. **File system does not provide any procedure to stop anomalies**. Whereas **DBMS provides a locking system to stop anomalies to occur**.
 * **Data searching –**
-For every search operation performed on file system, a different application program has to be written. While DBMS provides inbuilt searching operations. User only have to write a small query to retrieve data from database.
+For every search operation performed on file system, a different application program has to be written. While DBMS provides inbuilt searching operations => users only have to write a small query to retrieve data from database.
 * **Data integrity -**  
 There may be cases when some constraints need to be applied on the data before inserting it in database. The file system does not provide any procedure to check these constraints automatically. Whereas DBMS maintains data integrity by enforcing user defined constraints on data by itself.
 * **System crashing –** 
