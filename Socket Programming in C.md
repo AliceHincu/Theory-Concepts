@@ -8,7 +8,7 @@
 ```netstat -ano | findstr ":8080"``` (to find pid - last column - for port) and then ```taskkill /F /PID <pid>``` to kill the process with the pid
 ## Socket creation
 **socket() creates an endpoint for communication** and returns a file descriptor that refers to that endpoint.  The file descriptor returned by a successful call will be the lowest-numbered file descriptor not currently open for the process.
-```c++
+```c
 #include <sys/socket.h>
 
 int sockfd = socket(domain, type, protocol)
@@ -25,7 +25,7 @@ int sockfd = socket(domain, type, protocol)
 * [manual: socket](https://man7.org/linux/man-pages/man2/socket.2.html)
 
 ## Setsockopt:
-```c++
+```c
 #include <sys/socket.h>
 
 int setsockopt(int sockfd, int level, int optname, const void *optval, socklen_t optlen);
@@ -42,14 +42,38 @@ After creation of the socket, **bind function binds the socket to the address an
 
 From manual: When a socket is created with socket(2), it exists in a namespace (address family) but has no address assigned to it.  bind() assigns the address specified by **addr** to the socket referred to, by the file descriptor sockfd.  **addrlen** specifies the size, in bytes, of the address structure pointed to by addr. Traditionally, this operation is called **“assigning a name to a socket”**.
 
+
 * **return value**: 
    * On success, a file descriptor for the new socket is returned.  
    * On error, -1 is returned, and errno is set to indicate the error.
 * [manual: bind](https://man7.org/linux/man-pages/man2/bind.2.html)
 
+
+### sockaddr structure
+```c
+struct sockaddr {
+  uint8_t sa_len;
+  sa_family_t sa_family; /* address family: AF_xxx value */
+  char sa_data[14];
+};
+
+struct sockaddr_in {
+  uint8_t sin_len; /* length of structure (16)*/
+  sa_family_t sin_family; /* AF_INET*/
+  in_port_t sin_port; /* 16 bit TCP or UDP port number */
+  struct in_addr sin_addr; /* 32 bit IPv4 address*/
+  char sin_zero[8]; /* not used but always set to zero - remaining to 14*/
+};
+
+struct in_addr{
+  in_addr_t s_addr; /*32 bit IPv4 network byte ordered address*/
+};
+
+```
+
 ## Listen
 **Listen for connections on a socket.**
-```c++
+```c
 #include <sys/socket.h>
 
 int listen(int sockfd, int backlog);
@@ -79,7 +103,7 @@ It extracts the first connection request on the queue of pending connections for
 
 ## Connect
 **Initiate a connection on a socket**
-```c++
+```c
 #include <sys/socket.h>
 
 int connect(int sockfd, const struct sockaddr *addr, socklen_t addrlen);
@@ -91,6 +115,52 @@ The connect() system call connects the socket referred to by the file descriptor
 * [manual: connect](https://man7.org/linux/man-pages/man2/connect.2.html)
 
 Info taken from [here](https://www.geeksforgeeks.org/socket-programming-cc/) and manual.
+
+
+## Close
+**Close a file descriptor**
+```c++
+#include <unistd.h>
+
+int close(int fd);
+```
+close() closes a file descriptor, so that it no longer refers to any file and may be reused.  Any record locks (see fcntl(2)) held on the file it was associated with, and owned by the process, are removed (regardless of the file descriptor that was used to obtain the lock).
+* **return value**
+   * Returns zero on success.  
+   * On error, -1 is returned, and errno is set to indicate the error.
+* [manual: close](https://man7.org/linux/man-pages/man2/close.2.html)
+
+## Send
+**Send a message on a socket**
+```c
+#include <sys/socket.h>
+
+ssize_t send(int sockfd, const void *buf, size_t len, int flags);
+```
+The only difference between send() and write(2) is the presence of flags.  With a zero flags argument, send() is equivalent to write(2).
+* **sockfd**: file descriptor of the sending socket
+* **buf**: the message is found in buf and has length **len**
+* **flags**: argument is the bitwise OR of zero or more of some flags.
+* **return value**
+   * On success, these calls return the number of bytes sent.
+   * On error, -1 is returned, and errno is set to indicate the error.
+* [manual: send](https://man7.org/linux/man-pages/man2/send.2.html)
+
+## Recv
+**Receive a message from a socket**
+```c
+#include <sys/socket.h>
+
+ssize_t recv(int sockfd, void *buf, size_t len, int flags);
+```
+They may be used to receive data on both connectionless and connection-oriented sockets.  This page first describes common features of all three system calls, and then describes the differences between the calls. The only difference between recv() and read(2) is the presence of flags.  With a zero flags argument, recv() is generally equivalent to read(2).
+* **sockfd**: file descriptor of the sending socket
+* **buf**: the message is found in buf and has length **len**
+* **return value**
+   * On success, these calls return the number of bytes received.
+   * On error, -1 is returned, and errno is set to indicate the error.
+* [manual: send](https://man7.org/linux/man-pages/man2/recv.2.html)
+
 
 # Example server.c
 ```c++
