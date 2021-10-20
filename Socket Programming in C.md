@@ -114,8 +114,6 @@ The connect() system call connects the socket referred to by the file descriptor
    * On error, -1 is returned, and errno is set to indicate the error.
 * [manual: connect](https://man7.org/linux/man-pages/man2/connect.2.html)
 
-Info taken from [here](https://www.geeksforgeeks.org/socket-programming-cc/) and manual.
-
 
 ## Close
 **Close a file descriptor**
@@ -161,6 +159,9 @@ They may be used to receive data on both connectionless and connection-oriented 
    * On error, -1 is returned, and errno is set to indicate the error.
 * [manual: send](https://man7.org/linux/man-pages/man2/recv.2.html)
 
+
+
+Info taken from [here](https://www.geeksforgeeks.org/socket-programming-cc/) and manual.
 
 # Example server.c
 ```c++
