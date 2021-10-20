@@ -3,6 +3,9 @@
 
 ![](http://media.geeksforgeeks.org/wp-content/uploads/Socket-Programming-in-C-C-.jpg)
 
+## IN CASE OF ADDRESS ALREADY IN USE
+* For windows:
+```netstat -ano | findstr ":8080"``` (to find pid - last column - for port) and then ```taskkill /F /PID <pid>``` to kill the process with the pid
 ## Socket creation
 **socket() creates an endpoint for communication** and returns a file descriptor that refers to that endpoint.  The file descriptor returned by a successful call will be the lowest-numbered file descriptor not currently open for the process.
 ```c++
@@ -20,6 +23,14 @@ int sockfd = socket(domain, type, protocol)
    * On success, a file descriptor for the new socket is returned.  
    * On error, -1 is returned, and errno is set to indicate the error.
 * [manual: socket](https://man7.org/linux/man-pages/man2/socket.2.html)
+
+## Setsockopt:
+```c++
+#include <sys/socket.h>
+
+int setsockopt(int sockfd, int level, int optname, const void *optval, socklen_t optlen);
+```
+This helps in manipulating options for the socket referred by the file descriptor sockfd. This is completely optional, but it helps in reuse of address and port. Prevents error such as: “address already in use”.
 
 ## Bind
 ```c++
@@ -95,6 +106,11 @@ int main() {
     if (sock == -1) {
         perror("Could not open socket");
         return -3;
+    }
+    
+    if(setsockopt(sock, SOL_SOCKET, SO_REUSEADDR , &(int){1}, sizeof(int))){
+        perror("setsock");
+        return -10;
     }
 
     struct sockaddr_in server; // <netinet/ip.h>
