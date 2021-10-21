@@ -3,6 +3,11 @@ Be sure to first read the "Socket Programming in C"!!
 
 **Sockets allow communication between two different processes on the same or different machines**. To be more precise, it's a way to talk to other computers using standard Unix file descriptors. In Unix, every I/O action is done by writing or reading a file descriptor. A file descriptor is just an integer associated with an open file and it can be a network connection, a text file, a terminal, or something else. **A Unix Socket is used in a client-server application framework**. A server is a process that performs some functions on request from a client.
 
+
+### TO MAKE THE .PY WORK:
+```chmod +x client.py``` before ./client, and in the file the first line is : ```#!/usr/bin/env python3```
+
+
 # Some theory
 This is from [Socket programming docs](https://docs.python.org/3/howto/sockets.html). 
 
