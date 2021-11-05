@@ -21,7 +21,8 @@ I have created this repository for myself, but you are free to read anything fro
     * [OSI Model](https://github.com/913AliceHincu/Theory-Concepts/blob/main/Computer%20Networks:%20OSI%20Model.md) - the 7 layers
     * [Devices](https://github.com/913AliceHincu/Theory-Concepts/blob/main/Computer%20Networks:%20Devices.md) - Analog modem, Hub, Switch, Wireless Access Point, Router
     * Socket Programming
-      * [Socket Programming in C](https://github.com/913AliceHincu/Theory-Concepts/blob/main/Socket%20Programming%20in%20C.md) 
+      * [Socket Programming in C - TCP](https://github.com/AliceHincu/Theory-Concepts/blob/main/Socket%20Programming%20in%20C%20-%20TCP.md) 
+      * [Socket Programming in C - UDP](https://github.com/AliceHincu/Theory-Concepts/blob/main/Socket%20Programming%20in%20C%20-%20UDP.md)
       * [Socket Programming in Python](https://github.com/913AliceHincu/Theory-Concepts/blob/main/Socket%20Programming%20in%20Python.md)
       * [Little Endian vs Big Endian](https://github.com/913AliceHincu/Theory-Concepts/blob/main/Little%20Endian%20vs%20Big%20Endian.md)
       * [Threading in Python](https://github.com/913AliceHincu/Theory-Concepts/blob/main/Threading%20in%20python.md)
