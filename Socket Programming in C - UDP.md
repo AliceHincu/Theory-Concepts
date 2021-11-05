@@ -84,3 +84,12 @@ int close(int fd)
 ```
 
 * **fd** – File descriptor
+
+## bcopy
+**The bcopy() function copies n bytes from src to dest. The result is correct, even when both areas overlap. Does not return anything.**
+```c
+#include <strings.h>
+
+void bcopy(const void *src, void *dest, size_t n);
+```
+
