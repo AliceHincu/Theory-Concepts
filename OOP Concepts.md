@@ -287,7 +287,7 @@ In Java, abstraction is achieved using Abstract classes and interfaces. An Abstr
 * **If a class is declared abstract, it cannot be instantiated**.
 * To use an abstract class, you have to inherit it from another class and **if you inherit an abstract class, you have to provide implementations to all the abstract methods** in it.
 
-```
+``` java
 // Java program to illustrate the concept of Abstraction
   
 abstract class Shape {
