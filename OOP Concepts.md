@@ -8,6 +8,7 @@ Content:
 * [Inheritance](#inheritance)
 * [Polymorphism](#polymorphism)
 * [Abstraction](#abstraction)
+* [Interface](#interface)
 # Object
 ### Object Definitions:
 * An object is **a real-world entity**.
@@ -380,5 +381,47 @@ Circle constructor called
 Shape constructor called
 Rectangle constructor called
 Circle color is Redand area is : 15.205308443374602
-```
 Rectangle color is Yellowand area is : 8.0
+```
+
+# Interface
+An interface is a reference type in Java. It is similar to class. It is a collection of abstract methods. A class implements an interface, thereby inheriting the abstract methods of the interface. The **interface keyword** is used to declare an interface
+
+Interfaces have the following properties:
+* An interface is implicitly abstract. You do not need to use the abstract keyword while declaring an interface.
+* Each method in an interface is also implicitly abstract, so the abstract keyword is not needed.
+* Methods in an interface are implicitly public.
+
+When a class implements an interface, you can think of the class as signing a contract, agreeing to perform the specific behaviors of the interface. If a class does not perform all the behaviors of the interface, the class must declare itself as abstract.
+
+``` java
+interface Animal {
+   public void eat();
+   public void travel();
+}
+
+public class MammalInt implements Animal {
+   public void eat() { System.out.println("Mammal eats"); }
+
+   public void travel() { System.out.println("Mammal travels"); } 
+
+   public int noOfLegs() { return 0; }
+
+   public static void main(String args[]) {
+      MammalInt m = new MammalInt();
+      m.eat();
+      m.travel();
+   }
+}
+```
+
+Output
+```
+Mammal eats
+Mammal travels
+```
+
+When implementation interfaces, there are several rules :
+* A class can implement more than one interface at a time.
+* A class can extend only one class, but implement many interfaces.
+* An interface can extend another interface, in a similar way as a class can extend another class.
