@@ -7,7 +7,7 @@ Content:
 * [Encapsulation](#encapsulation)
 * [Inheritance](#inheritance)
 * [Polymorphism](#polymorphism)
-* [Abstaction](#abstraction)
+* [Abstraction](#abstraction)
 # Object
 ### Object Definitions:
 * An object is **a real-world entity**.
