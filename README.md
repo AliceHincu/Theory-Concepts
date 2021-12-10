@@ -17,7 +17,7 @@ I have created this repository for myself, but you are free to read anything fro
 * **SECOND YEAR**
   * Java (MAP)
     * [About java](https://github.com/913AliceHincu/Theory-Concepts/blob/main/About%20java.md) - JDK, JVM, JRE
-    * [OOP Concepts]() -
+    * [OOP Concepts](https://github.com/AliceHincu/Theory-Concepts/blob/main/OOP%20Concepts.md) - Object, Class, Class(Modifiers, Method Overloading, Method Overriding), Encapsulation, Inheritance, Polymorphism, Abstaction
     * [Type casting](https://github.com/AliceHincu/Theory-Concepts/blob/main/Type%20casting.md) - Primitive conversions(Widening/Narrowing casting), Reference variable casting(upcasting/downcasting, polymorfism, overriding)
   * Computer Networks
     * [OSI Model](https://github.com/913AliceHincu/Theory-Concepts/blob/main/Computer%20Networks:%20OSI%20Model.md) - the 7 layers
