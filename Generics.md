@@ -1,3 +1,10 @@
+Content:
+* [Generic Methods](#generic-methods)
+* [Generic Classes](#generic-classes)
+* [Bounded Type Parameters](#bounded-type-parameters)
+* [Wildcards](#wildcards)
+* [Erasure](#erasure)
+* [Restrictions on Generics](#restrictions-on-generics)
 # Why Use Generics?
 **Generics enable types** (classes and interfaces) **to be parameters when defining classes, interfaces and methods**. Generics **add stability** to your code by making more of your bugs detectable at compile time. Type parameters provide a way for you to **re-use the same code with different inputs type**.
 
