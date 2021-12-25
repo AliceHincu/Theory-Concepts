@@ -30,6 +30,7 @@ I have created this repository for myself, but you are free to read anything fro
       * [Socket Programming in Python](https://github.com/913AliceHincu/Theory-Concepts/blob/main/Socket%20Programming%20in%20Python.md)
       * [Little Endian vs Big Endian](https://github.com/913AliceHincu/Theory-Concepts/blob/main/Little%20Endian%20vs%20Big%20Endian.md)
       * [Threading in Python](https://github.com/913AliceHincu/Theory-Concepts/blob/main/Threading%20in%20python.md)
+    * [IP Addressing](https://github.com/AliceHincu/Theory-Concepts/blob/main/IP%20Addressing.md)
   * Databases
     * [Databases I](https://github.com/913AliceHincu/Theory-Concepts/blob/main/Databases%20I.md) - Discussion: Files vs DBMS
     * [Databases II](https://github.com/913AliceHincu/Theory-Concepts/blob/main/Databases%20II.md) - Database, Data description model (DDM) 
