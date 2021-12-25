@@ -208,3 +208,79 @@ Now we have to check if the problem is solvable... can I assign all the required
   * from 194.254.160.60(network addr) to 194.254.160.63(broadcast)
 
 !!! We are left with 128-64 = 64 IPs. 64 = 2^6 => the mask is 32-6=26. So the last one, **194.254.160.64/26**, remains free.
+
+### METHOD 2 - using a binary tree that will provide all the allocations
+What we know:
+* N1, N2, N3 -> we need 16ips
+* N4, N5, N6, N7 -> we need 4ips
+
+![image](https://user-images.githubusercontent.com/53339016/147389407-c448fa99-fc9f-4ee7-ab7e-926bd9b1c9c7.png)
+
+**STEP 1**: We take the original IP space , in this case **194.254.160.0**. Do we have a requirement for a network this large? (We know that 194.254.160.0 has mask 25, so 128ips). No, we don't need a network that contains 128ips => we split the network in 2. <br>
+**STEP 2**: We will get **194.254.160.0/26** and **194.254.160.64/26**. Do we need now any /26 subnetwork? No, because we don't have any need to have 64 IPs, only 16IPs and 4IPs. So we split again. <br>
+**STEP 3**: We will get **194.254.160.0/27**, **194.254.160.32/27** and **194.254.160.64/27**, **194.254.160.96/27**. We don't need the size 32, so we divide it again. We will only work on the left side until we manage to allocate it. <br>
+**STEP 4**: We will get **194.254.160.0/28** and **194.254.160.16/28**. WE NEED NOW /28. We need 3 of them. So, **N1 will be 194.254.160.0/28** and **N2 will be 194.254.160.16/28**. 
+**STEP 5**: We still need a network of 16, so we move to the right. 194.254.160.32/27 can be split into **194.254.160.32/28** and **194.254.160.48/28**. **N3 will be 194.254.160.32/28**.
+**STEP 6**: We solved the networks that required 16IPs, we have left 4networks that need 4IPs. We split 194.254.160.48/28. We need to split twice (16->8->4) to have what we need(/30). See the image.
+
+Advanatges:
+* you will never get an invalid combination with the mask. The mask will always be correct.
+
+### Let's write some routing tables.
+Recall this image
+![image](https://user-images.githubusercontent.com/53339016/147390410-8323cf9a-3760-443c-8e30-5d617857c207.png)
+
+**For R2**: The connected networks are: N2, N4, N6 <br>
+**Remember the IP for the routers**:
+* R1 has IP:
+   * 194.254.160.50 in N4 
+   * 194.254.160.53 in N5
+P.S: 0.0.0.0 means it's directly connected to the network (default entry)
+
+| Destination Network | Mask | Next Router(Gateaway)       | Interface |
+|        --           | --   |  --                         | --        |
+| 194.254.160.16 (N2) | /28  | 0.0.0.0                     | 0         |  
+| 194.254.160.48 (N4) | /30  | 0.0.0.0                     | 2         |     
+| 194.254.160.56 (N6) | /30  | 0.0.0.0                     | 1         |  
+| 194.254.160.0  (N1) | /28  | 194.254.160.50 (R1 from N4) | 2         |
+| 194.254.160.52 (N5) | /30  | 194.254.160.50 (R1 from N4) | 2         |
+| 194.254.160.32 (N3) | /28  | 194.254.160.50 (R1 from N4) | 2         |
+| OR 0.0.0.0(use R4 for N3) | /30  | 194.254.160.58 (R4 from N6) | 1   |
+
+## pb3
+Extract first IP and broadcast for 172.17.89.200/19.
+
+-------------------------------------------------
+
+Is this a network address or an IP from a network? 200 % 19 != 0 so it's an IP. <br>
+
+**1. HOW DO WE OBTAIN THE NETWORK ADDRESS?**  With the operation **ip AND mask**: <br>
+172.17.89.200 AND<br>
+244.255.224.0 <br>
+= = = = = = = <br>
+172.17.64.0 => Network address => first IP is 172.17.64.1
+
+**2. HOW DO WE OBTAIN THE BROADCAST ADDRESS?** <br>
+With the operation **network addr OR complementary of mask**: <br>
+The mask is /19 which is equivalent to 255.255.224.0 => the complementary is 0.0.31.255
+
+172.17.64.0 OR <br>
+0.0.31.255 <br>
+= = = = = = = <br>
+172.17.95.255 => Broadcast address
+
+## pb4
+Subnet 203.10.93.0/24 in 30 subnets. Is 203.10.93.30 a valid host IP?
+
+-------------------------
+
+Can we split that IP address base into 30 equally sized subnets? No, because 256 % 30 != 0. 
+
+**1. Can 203.10.93.30 be a network address?** <br>
+**To be** 203.10.93.30 **a network address, 30 needs to be a sum of powers of 2 or a power of 2**. 16+8+4+2=30 => it can be a network address. But if it would be a subnetwork address, you'll have the mask 31 (You can write 30 as 00011110 => mask /31) which is unusable so IT CAN'T BE A NETORK ADDRESS.
+Also, 30 is only divisible with 2 so the mask is /31.
+
+**2. Can 203.10.93.30 be a broadcast address?** <br>
+If it's a broadcast that would mean that the next subnetwork should start at 203.10.93.31, which is impossible (it's not a sum of powers of 2, and it should be divisible by 4 at least).
+
+From (1) and (2) => **203.10.93.30 is always a host IP.**
