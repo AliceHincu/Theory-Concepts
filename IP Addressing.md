@@ -70,7 +70,6 @@ Class D does not posses any sub-net mask. IP addresses belonging to class D rang
 ### Class E:
 IP addresses belonging to class E are reserved for experimental and research purposes. IP addresses of class E ranges from 240.0.0.0 – 255.255.255.254. This class doesn’t have any sub-net mask. The higher order bits of first octet of class E are always set to 1111.
 
-## Rules
 ### Rules for assigning Host ID
 Host ID’s are used to identify a host within a network. The host ID are assigned based on the following rules:
 * Within any network, the host ID must be unique to that network.
@@ -83,17 +82,53 @@ Hosts that are located on the same physical network are identified by the networ
 * All bits of network ID set to 1 are reserved for use as an IP broadcast address and therefore, cannot be used.
 * All bits of network ID set to 0 are used to denote a specific host on the local network and are not routed and therefore, aren’t used.
 
-## Problems with Classful Addressing
+### Problems with Classful Addressing
 The problem with this classful addressing method is that millions of class A address are wasted, many of the class B address are wasted, whereas, number of addresses available in class C is so small that it cannot cater the needs of organizations. Class D addresses are used for multicast routing and are therefore available as a single block only. Class E addresses are reserved.
 
 # CIDR (Classless Inter-Domain Routing or supernetting)
-CIDR (Classless Inter-Domain Routing) -- also known as supernetting -- is a method of assigning Internet Protocol (IP) addresses that improves the efficiency of address distribution and replaces the previous system based on Class A, Class B and Class C networks. The initial goal of CIDR was to slow the increase of routing tables on routers across the internet and decrease the rapid exhaustion of IPv4 addresses. As a result, the number of available internet addresses has greatly increased.
+CIDR (Classless Inter-Domain Routing) -- also known as supernetting -- is a method of assigning Internet Protocol (IP) addresses that improves the efficiency of address distribution and replaces the previous system based on Class A, Class B and Class C networks. **The initial goal of CIDR was to slow the increase of routing tables on routers across the internet and decrease the rapid exhaustion of IPv4 addresses**. As a result, the number of available internet addresses has greatly increased.
 
-If an organization needed more than 254 host machines, it would be switched into Class B. However, this could potentially waste over 60,000 hosts if the business didn't need to use them, thus unnecessarily decreasing the availability of IPv4 addresses. CIDR was introduced by the Internet Engineering Task Force (IETF) in 1993 to fix this problem
+An IP address is represented by a prefix, which is the IP address of the network. It is followed by a slash, followed by a number M. M: number of leftmost contiguous bits to be used for the network mask.
+* Example: 144.16.192.57 / 18
 
-* address format: a.b.c.d/x, where x is the number of bits in network portion of address
-IP subnets introduces a third level of hierarchy: a network portion	, a subnet portion, a host portion
+### Rules
+* The number of addresses in each block must be a power of 2.(4,8,16,.... IP addresses) 
+* The beginning address in each block must be divisible by the number of addresses in the block.
+  * Example: A block that contains 16 addresses cannot have beginning address as 193.226.40.36. because 36 % 16 is not equal to 0, but the address 193.226.40.64 is possible, because 64 % 16 = 0.
 
+Other example:
+* 209.220.186.8/255.255.255.252 (=30) => i only have 2 bits for the hosts, so from 209.220.186.8 - 209.220.186.11. And .8 is for network address and .11 is for broadcasting. 8 % 4 = 0, so it's correct
+
+### Masks
+Class A, B and C addresses have a fixed division of network and host portions and can be expressed as masks.
+
+**Natural Masks** 
+* Class A: 255.0.0.0
+* Class B: 255.255.0.0
+* Class C: 255.255.255.0
+
+Masks are very flexible. Using masks, networks can be divided into smaller subnets, by extending the network portion of the address into the host portion. Advantage gained:
+* We can create a large number of subnets from one network.
+* Can have less number of hosts per network. (the amount of bits from the mask is reserved for the network, only the bits left are for the hosts => less number than just 255.255.255.0 for example)
+
+
+### How does one get IP Addresses ?!
+It gets allocated from the portion of its ISP’s address space(ISP = Internet Service Provider)
+
+----------------------------------------------------------------------------------------------------
+|  ISP's block   |   _11001000  00010111  0001_ 0000  00000000| 200.23.16.0/20 | 2^12 IPs          |
+|     ---        |                  -------                   |       ---      |     ---           |
+| Organization 0 |   11001000  00010111  00010000  00000000   | 200.23.16.0/23 | asking for 512IPs |
+| Organization 1 |   11001000  00010111  00010010  00000000   | 200.23.18.0/23 | asking for 512IPs |
+| Organization 2 |   11001000  00010111  00010100  00000000   | 200.23.20.0/23 | asking for 512IPs |
+|   ...          |                   ......                   |     ...        |         .....     |
+| Organization 7 |   11001000  00010111  00011110  00000000   | 200.23.30.0/23 | asking for 512IPs |
+
+8 organizations * 512 each = 2^1 => i have used all addresses.
+
+[Public vs Private addresses](https://help.keenetic.com/hc/en-us/articles/213965789-What-is-the-difference-between-a-public-and-private-IP-address-)
+
+[Routing tables](https://www.geeksforgeeks.org/routing-tables-in-computer-network/)
 
 # PROBLEMS
 ## pb1
@@ -128,3 +163,48 @@ We know that the size of Networks in CIDR are powers of 2.
   * 193.226.40.192 is the network address
   * 193.226.40.255 is the broadcast address
   * It also respects the divisible rule. 192 % 64 = 0.
+
+## pb2
+Suppose we have a network like this:
+
+![image](https://user-images.githubusercontent.com/53339016/147375881-b7fc4a93-3681-43a8-8393-b4b329060f4d.png)
+
+We need to **split this network(194.254.160.0) into subnetworks**. 
+
+--------------------------------
+
+To find the networks we take out the routers => 3 networks from the hosts(N1, N2, N3) and 4 others.
+
+![image](https://user-images.githubusercontent.com/53339016/147375910-f7c0e8b8-c8c4-413e-9d58-f80d84c46185.png)
+
+**How many IPs we need for each network?**
+* N1: 8 hosts + 1 router + 1 network addr + 1 broadcast addr = 11 => 16 is the smaller power
+* N2: 11 hosts + 1 router + 1 network addr + 1 broadcast addr = 14 => 16 is the smaller power
+* N3: 8 hosts + 1 router + 1 network addr + 1 broadcast addr = 11 => 16 is the smaller power
+* N4, N5, N6, N7: 2 routers + 1 network addr + 1 broadcast addr = 4
+
+194.254.160.0 | 25 => 128 IPs <br>
+16 + 16 + 16 + 4 + 4 + 4 + 4 = 64 IPs.
+
+Now we have to check if the problem is solvable... can I assign all the required IP subnetworks by using that 128? When we add them up together, we have 64. 64<128 => problem solvable.
+
+**YOU SHOULD ALWAYS START WITH THE LARGEST SUBNETWORK AND GO TOWARDS TO THE SMALLEST SUBNETWORK WHEN YOU ALLOCATE**
+
+* N1 (we need 16 ips) 
+ * 16 = 2^4. from 32 bits, we subtract 4 => the network mask is 28 => **194.254.160.0/28**. 
+ * from 194.254.160.0(network addr) to 194.254.160.15(broadcast)
+* N2 (we need 16 ips). Same thing but we begin from .16 => **194.254.160.16/28**
+ * from 194.254.160.16(network addr) to 194.254.160.31(broadcast) 
+* N3 (we need 16 ips). Same thing but we begin from .32 => **194.254.160.32/28**
+ * from 194.254.160.32(network addr) to 194.254.160.47(broadcast) 
+* N4 (we need 4 ips).
+ * 4 = 2^2. from 32 bits, we subtract 2 => the network mask is 30 => **194.254.160.48/30**
+ * from 194.254.160.48(network addr) to 194.254.160.51(broadcast)
+* N5 (we need 4 ips). Same thing but we begin from .52 => **194.54.160.52/30**
+ * from 194.254.160.52(network addr) to 194.254.160.55(broadcast)
+* N6 (we need 4 ips). Same thing but we begin from .56 => **194.54.160.56/30**
+ * from 194.254.160.56(network addr) to 194.254.160.59(broadcast)
+* N7 (we need 4 ips). Same thing but we begin from .60 => **194.54.160.60/30**
+ * from 194.254.160.60(network addr) to 194.254.160.63(broadcast)
+
+!!! We are left with 128-64 = 64 IPs. 64 = 2^6 => the mask is 32-6=26. So the last one, **194.254.160.64/26**, remains free.
