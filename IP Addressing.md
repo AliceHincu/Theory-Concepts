@@ -191,20 +191,20 @@ Now we have to check if the problem is solvable... can I assign all the required
 **YOU SHOULD ALWAYS START WITH THE LARGEST SUBNETWORK AND GO TOWARDS TO THE SMALLEST SUBNETWORK WHEN YOU ALLOCATE**
 
 * N1 (we need 16 ips) 
- * 16 = 2^4. from 32 bits, we subtract 4 => the network mask is 28 => **194.254.160.0/28**. 
- * from 194.254.160.0(network addr) to 194.254.160.15(broadcast)
+  * 16 = 2^4. from 32 bits, we subtract 4 => the network mask is 28 => **194.254.160.0/28**. 
+  * from 194.254.160.0(network addr) to 194.254.160.15(broadcast)
 * N2 (we need 16 ips). Same thing but we begin from .16 => **194.254.160.16/28**
- * from 194.254.160.16(network addr) to 194.254.160.31(broadcast) 
+  * from 194.254.160.16(network addr) to 194.254.160.31(broadcast) 
 * N3 (we need 16 ips). Same thing but we begin from .32 => **194.254.160.32/28**
- * from 194.254.160.32(network addr) to 194.254.160.47(broadcast) 
+  * from 194.254.160.32(network addr) to 194.254.160.47(broadcast) 
 * N4 (we need 4 ips).
- * 4 = 2^2. from 32 bits, we subtract 2 => the network mask is 30 => **194.254.160.48/30**
- * from 194.254.160.48(network addr) to 194.254.160.51(broadcast)
+  * 4 = 2^2. from 32 bits, we subtract 2 => the network mask is 30 => **194.254.160.48/30**
+  * from 194.254.160.48(network addr) to 194.254.160.51(broadcast)
 * N5 (we need 4 ips). Same thing but we begin from .52 => **194.54.160.52/30**
- * from 194.254.160.52(network addr) to 194.254.160.55(broadcast)
+  * from 194.254.160.52(network addr) to 194.254.160.55(broadcast)
 * N6 (we need 4 ips). Same thing but we begin from .56 => **194.54.160.56/30**
- * from 194.254.160.56(network addr) to 194.254.160.59(broadcast)
+  * from 194.254.160.56(network addr) to 194.254.160.59(broadcast)
 * N7 (we need 4 ips). Same thing but we begin from .60 => **194.54.160.60/30**
- * from 194.254.160.60(network addr) to 194.254.160.63(broadcast)
+  * from 194.254.160.60(network addr) to 194.254.160.63(broadcast)
 
 !!! We are left with 128-64 = 64 IPs. 64 = 2^6 => the mask is 32-6=26. So the last one, **194.254.160.64/26**, remains free.
