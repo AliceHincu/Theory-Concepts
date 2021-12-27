@@ -187,4 +187,33 @@ Now we set the IPs:
    * DNS Server: 194.95.50.66
 
 **NOW WE BASICALLY CONFIGURED ALL OF OUR NETWORKS, BUT NOW WE HAVE TO CONFIGURE THE NETWORKS BETWEEN THEM.**
-   
+
+### 2.6 Connect the routers.
+**Copper cross-over**: This Ethernet cable connects devices operating in the same OSI layer (such as hub to hub, PC to PC, PC to router, and PC to printer). This cable can also be used with Ethernet, Fast Ethernet and Gigabit Ethernet port types.
+
+* Connect R1 and R2 to make N12. 
+   * N12 is 194.95.50.112/30
+   * R1 is 194.95.50.113 on FastEthernet1/0, with subnet Mask 255.255.255.252 and then "On"
+   * R2 is 194.95.50.114 on FastEthernet1/0, with subnet Mask 255.255.255.252 and then "On"
+* Connect R1, R3, R4, R5 to make N1345.
+   * N1345 is 194.95.50.104/29
+   * R1 is 194.95.50.105 on FastEthernet2/0, with subnet Mask 255.255.255.248 and then "On"
+   * R3 is 194.95.50.106 on FastEthernet1/0, with subnet Mask 255.255.255.248 and then "On"
+   * R4 is 194.95.50.107 on FastEthernet1/0, with subnet Mask 255.255.255.248 and then "On"
+   * R5 is 194.95.50.108 on FastEthernet1/0, with subnet Mask 255.255.255.248 and then "On"
+* Connect R5 with Wireless to create N5w.
+   * N5 is 194.95.50.116/30
+   * When you connect the wire from wireless to router, make sure to select INTERNET, not ethernet.
+   * R5 is N5 is 194.95.50.117 on FastEthernet2/0, with subnet Mask 255.255.255.252 and then "On"
+   * Wireless go to Config>Internet
+      * Ip is 194.95.50.118 
+      * Subnet Mask 255.255.255.252 
+      * Default Gateway is 194.95.50.117 (R5)
+      * DNS Server is 194.95.50.66
+      * you may also go to Config > Wireless and set the SSID "r" (give whatever name you want)
+* For the private network
+   * Connect with straight through wire the wireless with a pc (because the wireless is also a switch for LAN). Don;t forget to put DHCP.
+   * Connect a phone to wireless router:
+      * go to config > wireless0 and at ssid write "r" . Then check if it has an IP.
+
+# STEP 3: Routing tables
