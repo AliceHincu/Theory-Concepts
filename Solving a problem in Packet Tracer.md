@@ -74,7 +74,7 @@ We choose a pc, a PT Server, a PT Switch and a PT router. We use copper straight
 ![image](https://user-images.githubusercontent.com/53339016/147502921-86f1ca30-6ab9-42db-9ad6-059147315542.png)
 
 Now we set the IPs: 
-* We start with the **router**, we go to config. We remember that the wire was used for FastEthernet 0/0, so for N1 we choose that interface and set the IP to 194.95.50.1. with mask /27.
+* We start with the **router**, we go to config. We remember that the wire was used for FastEthernet 0/0, so for N1 we choose that interface and set the IP to 194.95.50.1. with mask /27. Set the port "On".
 * Before we set the **server** to become DHCP go to desktop>ip config:
    * We need to statically assign an IP: 194.95.50.2 and mask /27. 
    * To reach the Internet from the server, we pass through R1, through FastEthernet0/0, so we set the server's default gateway to 194.95.50.1.
@@ -113,3 +113,69 @@ Now we set the IPs:
 * Now go to **PC**: 
    * Desktop > Ip Configuration, check the "DHCP" circle and check if the updated information is corect.
    * Desktop > Web Browser, in the URL write the server IP (194.95.50.34) and press "Go". You should see index.html ("New page").
+
+### 2.3 Setting up the third network (N3)
+The beginning is the same as N1, same devices, same wire.
+
+Now we set the IPs: 
+* We start with the **router**, we go to config. We remember that the wire was used for FastEthernet 0/0, so for N3 we choose that interface and set the IP to 194.95.50.65 with mask /28. Set the port "On".
+* Before we set the **DNS server** go to desktop>ip config:
+   * We need to statically assign an IP: 194.95.50.66 and mask /28. 
+   * To reach the Internet from the server, we pass through R3, through FastEthernet0/0, so we set the server's default gateway to 194.95.50.65
+   * We already calculated the IP of the DNS server, which is 194.95.50.66(itself), so we set it.
+* Now go back to services: DHCP (We can also set this one to DHCP, to make our lives easier): 
+   * We check the "On" circle, to make it a DHCP server (to set IPs for the rest of the PCs.)
+   * We set the "Start IP Address:" to 194.95.50.67, because .65 is for the router and .66 is for the server.
+   * We set the mask to /28 (255.255.255.240)
+   * We set the "Default Gateway" to the IP of the router(194.95.50.65) 
+   * We set the DNS to 194.95.50.66 (we already calculated it)
+   * **PRESS SAVE**
+* This is also a **DNS** server, so it will bond a made-up name to the IP address of the Web Server. Go to Services>DNS:
+   * Check the DNS Service circle to "On".
+   * Put any name you want in Name (We put: "x.com")
+   * Set the Address to be IP of the Web Server(194.95.50.34)
+   * **PRESS ADD**
+* Now go to **PC**: 
+   * Desktop > Ip Configuration, check the "DHCP" circle and check if the updated information is corect.
+   * Desktop > Web Browser, in the URL write the server IP (194.95.50.34) and press "Go". You should see index.html ("New page").
+
+
+### 2.4 Setting up the fourth network (N4)
+Here we do not have a server, so we usually have to allocate statically the PC's IP. We will do this at N5, but at N4 we will make the router DHCP(see steps below). We also have an Access Point(it's like a switch but makes the change from copper wired communication to wireless communication) and a laptop.
+
+Now we set the IPs: 
+* We start with the **router**, we go to config. We remember that the wire was used for FastEthernet 0/0, so for N4 we choose that interface and set the IP to 194.95.50.81 with mask /28. Set the port "On".
+* How to **make router DHCP**?
+   * Go to CLI > write command "exit" until you actually exit.
+   * Write "enable"
+   * Write "configure t"
+   * Write "ip dhcp pool x", where x is the name
+   * Write "?" to see the available commands if you want
+   * Write "network <IP_ADDRESS_OF_NETWORK> <MASK_OF_NETWORK>", in our case: "network 194.95.50.80 255.255.255.240"
+   * Write "default-router <IP_OF_ROUTER>", in our case: "default-router 194.95.50.81"
+   * Write "dns-server <IP_OF_DNS_SERVER>", in our case: "dns-server 194.95.50.66"
+   * Press CTRL+Z
+   * **Write "write memory" to save**
+* Now go to **PC**: 
+   * Desktop > Ip Configuration, check the "DHCP" circle and check if the updated information is corect.
+* Now go to **Access point**:
+  * Go to Config > Port 1 (which is the wireless port)  and give it a name (SSID) to the wireless network. We put the SSID to "a"(from "access point")
+* Now go to **laptop**:
+   *  turn off the laptop and get rid of the copper board(module) and select the wireless module "WPC300N" then turn on
+   *  go to Config > Wireless0 and set the SSID to the name of the access point (SSID: "a" in our case). After a few seconds, it should connect.
+   *  go to Desktop > IP Config. Set to static because if the first time the laptop connected to a random wi-fi and not to our access point, then it will have a wrong IP. So to be sure, put it on static first and then on DHCP.
+
+
+### 2.5 Setting up the fifth network (N5)
+Here we do not have a server, so we have to allocate statically the PC's IP.
+
+Now we set the IPs: 
+* We start with the **router**, we go to config. We remember that the wire was used for FastEthernet 0/0, so for N5 we choose that interface and set the IP to 194.95.50.97 with mask /29. Set the port "On".
+* Now go to **PC1** Desktop > Ip Configuration, check the "Static" circle and fill in the info:
+   * IPv4: 194.95.50.98
+   * Subnet Mask: /29  (255.255.255.248)
+   * Default Gateway: 194.95.50.97
+   * DNS Server: 194.95.50.66
+
+**NOW WE BASICALLY CONFIGURED ALL OF OUR NETWORKS, BUT NOW WE HAVE TO CONFIGURE THE NETWORKS BETWEEN THEM.**
+   
