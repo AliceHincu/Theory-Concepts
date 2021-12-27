@@ -69,7 +69,8 @@ The difference between PT-Router and PT-Empty is that the empty one doesn't have
 * **Copper straight-through**: This is a standard Ethernet cable that is used to **connect two devices that operate in different layers** of the OSI model (such as **hub to router** and **switch to PC**). It can be used with Ethernet, Fast Ethernet and Gigabit Ethernet port types.
 
 ### 2.1 Setting up the first network (N1)
-We choose a pc, a PT Server, a PT Switch and a PT router. We use copper straight-through as wire. This is how it's supposed to look:
+We choose a pc, a PT Server, a PT Switch and a PT router. We use copper straight-through as wire. We need to add "PT-SWITCH-NM-1CFE" module for switch and "PT-ROUTER-NM-1CFE" for the router. (TIP: In the beginning, add like 4-5 modules to each device. And then copy-paste each device so you don't lose time with setting modules again and again) This is how it's supposed to look:
+
 ![image](https://user-images.githubusercontent.com/53339016/147502921-86f1ca30-6ab9-42db-9ad6-059147315542.png)
 
 Now we set the IPs: 
@@ -88,3 +89,27 @@ Now we set the IPs:
 * Now go to **PC**, Desktop > Ip Configuration, check the "DHCP" circle and check if the updated information is corect.
 
 In the initial drawing is another PC, but I didn't add it here.
+
+### 2.2 Setting up the second network (N2)
+The beginning is the same as N1, same devices, same wire.
+
+Now we set the IPs: 
+* We start with the **router**, we go to config. We remember that the wire was used for FastEthernet 0/0, so for N2 we choose that interface and set the IP to 194.95.50.33 with mask /27. Set the port "On".
+* Before we set the **Web server** to become HTTP go to desktop>ip config:
+   * We need to statically assign an IP: 194.95.50.34 and mask /27. 
+   * To reach the Internet from the server, we pass through R2, through FastEthernet0/0, so we set the server's default gateway to 194.95.50.33
+   * We already calculated the IP of the DNS server, which is 194.95.50.66, so we set it.
+* Now go back to services: DHCP (We can also set this one to DHCP, to make our lives easier): 
+   * We check the "On" circle, to make it a DHCP server (to set IPs for the rest of the PCs.)
+   * We set the "Start IP Address:" to 194.95.50.35, because .33 is for the router and .34 is for the server.
+   * We set the mask to /27 (255.255.255.224)
+   * We set the "Default Gateway" to the IP of the router(194.95.50.33) 
+   * We set the DNS to 194.95.50.66 (we already calculated it)
+   * **PRESS SAVE**
+* Now go back to services: HTTP :
+   * Usually it's already on
+   * Edit index.html and write "New Page" (or anything you want)
+   * PRESS SAVE
+* Now go to **PC**: 
+   * Desktop > Ip Configuration, check the "DHCP" circle and check if the updated information is corect.
+   * Desktop > Web Browser, in the URL write the server IP (194.95.50.34) and press "Go". You should see index.html ("New page").
