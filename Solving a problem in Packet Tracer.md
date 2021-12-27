@@ -41,6 +41,50 @@ Recursive network split using a binary tree.
 | N8 | 194.95.50.116/30 | from .116  to .119 | it requires 4IPs | /30 = 255.255.255.252 |
 | free to allocate | 194.95.50.120/29 | from .120  to .127 | it requires 8IPs | /29 = 255.255.255.248 |
 
-P.S add table with routers and servers
+Rule: Network address is the first address, the router is the second one, the server is the third one.
+
+| Router/Server name | Network(s) it belongs to | IP from that network |
+| -- | -- | -- |
+| R1 | N1 | 194.95.50.1 |
+| R1 | N1345 | 194.95.50.105 |
+| R1 | N12 | 194.95.50.113 |
+| R1 | N5w | 194.95.50.117 |
+| S1 (DHCP) | N1 | 194.95.50.2 |
+| R2 | N2 | 194.95.50.33 |
+| R2 | N12 | 194.95.50.114 |
+| S2 (Web) | N2 | 194.95.50.34 |
+| R3 | N3 | 194.95.50.65 |
+| R3 | N1345 | 194.95.50.106 |
+| S3 (Dns) | N3 | 194.95.50.66 |
+| R4 | N4 | 194.95.50.81 |
+| R4 | N1345 | 194.95.50.107 |
+| R5 | N5 | 194.95.50.97 |
+| R5 | N1345 | 194.95.50.108 |
+| Rw | N5w | 194.95.50.118 |
 
 # STEP 2 - Packet Tracer
+The difference between PT-Router and PT-Empty is that the empty one doesn't have any modules in it (hence the name Empty). We usually choose the module "PT-Router-NM-1CFE", since we have to look for "fast ethernet" ("Module provides one **Fast-Ethernet interface** for use with **copper media**. Ideal for a wide range of LAN applications, the Fast Ethernet network modules support many internetworking features and standards"). 
+
+**How to choose the wire?** 
+* **Copper straight-through**: This is a standard Ethernet cable that is used to **connect two devices that operate in different layers** of the OSI model (such as **hub to router** and **switch to PC**). It can be used with Ethernet, Fast Ethernet and Gigabit Ethernet port types.
+
+### 2.1 Setting up the first network (N1)
+We choose a pc, a PT Server, a PT Switch and a PT router. We use copper straight-through as wire. This is how it's supposed to look:
+![image](https://user-images.githubusercontent.com/53339016/147502921-86f1ca30-6ab9-42db-9ad6-059147315542.png)
+
+Now we set the IPs: 
+* We start with the **router**, we go to config. We remember that the wire was used for FastEthernet 0/0, so for N1 we choose that interface and set the IP to 194.95.50.1. with mask /27.
+* Before we set the **server** to become DHCP go to desktop>ip config:
+   * We need to statically assign an IP: 194.95.50.2 and mask /27. 
+   * To reach the Internet from the server, we pass through R1, through FastEthernet0/0, so we set the server's default gateway to 194.95.50.1.
+   * We already calculated the IP of the DNS server, which is 194.95.50.66, so we set it.
+* Now go back to services: DHCP 
+   * We check the "On" circle, to make it a DHCP server (to set IPs for the rest of the PCs.)
+   * We set the "Start IP Address:" to 194.95.50.3, because .1 is for the router and .2 is for the server.
+   * We set the mask to /27 (255.255.255.224)
+   * We set the "Default Gateway" to the IP of the router(194.95.50.1) 
+   * We set the DNS to 194.95.50.66 (we already calculated it)
+   * **PRESS SAVE**
+* Now go to **PC**, Desktop > Ip Configuration, check the "DHCP" circle and check if the updated information is corect.
+
+In the initial drawing is another PC, but I didn't add it here.
