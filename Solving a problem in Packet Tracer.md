@@ -93,6 +93,8 @@ In the initial drawing is another PC, but I didn't add it here.
 ### 2.2 Setting up the second network (N2)
 The beginning is the same as N1, same devices, same wire.
 
+![image](https://user-images.githubusercontent.com/53339016/147510017-16388d7b-e55e-4304-bec0-760a92913dcc.png)
+
 Now we set the IPs: 
 * We start with the **router**, we go to config. We remember that the wire was used for FastEthernet 0/0, so for N2 we choose that interface and set the IP to 194.95.50.33 with mask /27. Set the port "On".
 * Before we set the **Web server** to become HTTP go to desktop>ip config:
@@ -116,6 +118,9 @@ Now we set the IPs:
 
 ### 2.3 Setting up the third network (N3)
 The beginning is the same as N1, same devices, same wire.
+
+![image](https://user-images.githubusercontent.com/53339016/147510040-f1150f96-c519-4378-ba40-1420fe639c6a.png)
+
 
 Now we set the IPs: 
 * We start with the **router**, we go to config. We remember that the wire was used for FastEthernet 0/0, so for N3 we choose that interface and set the IP to 194.95.50.65 with mask /28. Set the port "On".
@@ -143,6 +148,8 @@ Now we set the IPs:
 ### 2.4 Setting up the fourth network (N4)
 Here we do not have a server, so we usually have to allocate statically the PC's IP. We will do this at N5, but at N4 we will make the router DHCP(see steps below). We also have an Access Point(it's like a switch but makes the change from copper wired communication to wireless communication) and a laptop.
 
+![image](https://user-images.githubusercontent.com/53339016/147510065-e05d11c3-81bc-41b1-9026-d09e7c887196.png)
+
 Now we set the IPs: 
 * We start with the **router**, we go to config. We remember that the wire was used for FastEthernet 0/0, so for N4 we choose that interface and set the IP to 194.95.50.81 with mask /28. Set the port "On".
 * How to **make router DHCP**?
@@ -168,6 +175,8 @@ Now we set the IPs:
 
 ### 2.5 Setting up the fifth network (N5)
 Here we do not have a server, so we have to allocate statically the PC's IP.
+
+![image](https://user-images.githubusercontent.com/53339016/147510090-40f76d4c-9202-486c-b747-3af5d937f594.png)
 
 Now we set the IPs: 
 * We start with the **router**, we go to config. We remember that the wire was used for FastEthernet 0/0, so for N5 we choose that interface and set the IP to 194.95.50.97 with mask /29. Set the port "On".
