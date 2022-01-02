@@ -47,11 +47,11 @@ Rule: Network address is the first address, the router is the second one, the se
 | -- | -- | -- |
 | R1 | N1 | 194.95.50.1 |
 | R1 | N1345 | 194.95.50.105 |
-| R1 | N12 | 194.95.50.113 |
+| R1 | N12 | 194.95.50.114 |
 | R1 | N5w | 194.95.50.117 |
 | S1 (DHCP) | N1 | 194.95.50.2 |
 | R2 | N2 | 194.95.50.33 |
-| R2 | N12 | 194.95.50.114 |
+| R2 | N12 | 194.95.50.113 |
 | S2 (Web) | N2 | 194.95.50.34 |
 | R3 | N3 | 194.95.50.65 |
 | R3 | N1345 | 194.95.50.106 |
@@ -216,4 +216,20 @@ Now we set the IPs:
    * Connect a phone to wireless router:
       * go to config > wireless0 and at ssid write "r" . Then check if it has an IP.
 
-# STEP 3: Routing tables
+# STEP 3: Routing tables (static)
+R1 knows 3 networks: N1, N12, N1345. We have to manually introduce other networks
+Go to config > static and:
+* for R1:
+   * To reach N2, we have to introduce its network address(194.95.50.32), the mask(255.255.255.224) and the next hop which is R2(194.95.50.113), then click add
+   * To reach N3, we have to introduce its network address(194.95.50.64), the mask(255.255.255.240) and the next hop which is R3(194.95.50.106), then click add
+   * To reach N4, we have to introduce its network address(194.95.50.90), the mask(255.255.255.240) and the next hop which is R4(194.95.50.107), then click add
+   * To reach N5, we have to introduce its network address(194.95.50.96), the mask(255.255.255.248) and the next hop which is R5(194.95.50.108), then click add
+   * To reach N5w, we have to introduce its network address(194.95.50.116), the mask(255.255.255.252) and the next hop which is R3(194.95.50.108), then click add
+
+R2 doesn't know N1, N3, N4, N5, N5w. For any of these networks, we have to pass through R1. We will set R1 as a default gateway for R2.
+
+Go to config > static and:
+* To reach other networks, we have to introduce its network address(0.0.0.0), the mask(0.0.0.0) and the next hop which is R1(194.95.50.114), then click add
+
+R3 doesn't know N1, N2, N4, N5, N5w. 
+* To reach N1, we have to introduce its network address(194.95.50.0), the mask(255.255.255.224) and the next hop which is R1(194.95.50.105) from N1345, then click add
