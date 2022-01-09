@@ -43,3 +43,5 @@ I have created this repository for myself, but you are free to read anything fro
     * [Darabases IV](https://github.com/913AliceHincu/Theory-Concepts/blob/main/Databases%20IV:%20SQL%20languages.md) - SQL languages
       * [Data definition language]() 
     * [Normalization in DBMS](https://github.com/AliceHincu/Theory-Concepts/blob/main/Normalization%20in%20DBMS.md) - 1NF, 2NF ....
+  * Lisp
+    * [Lisp Functions and Predicates](https://github.com/AliceHincu/Theory-Concepts/blob/main/Lisp%20Functions%20and%20Predicates.md) 
