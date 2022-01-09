@@ -235,3 +235,13 @@ Remark: AND and OR do not evaluate all parameters unconditionally. They only eva
 * **<=** subr 2 (n n): T, NIL
 * **>** subr 2 (n n): T, NIL
 * **>=** subr 2 (n n): T, NIL
+
+# Defining user functions
+
+## DEFUN
+```lisp 
+(DEFUN fname (p1 p2 ... pn)
+  ...
+)
+```
+(fname arg1 arg2 ... argn)
