@@ -1,3 +1,13 @@
+# Content
+* [Primitive lisp functions](#primitive-lisp-functions)
+   * CONS, CAR, CDR, SET, SETQ, SETF 
+* [List processing functions](#list-processing-functions)
+   * LIST, APPEND, REVERSE, LENGTH 
+* [Predicates](#predicates)
+   * ATOM, LISTP, EQ, EQL, EQUAL, NULL, MEMBER, NUMBERP, ZEROP, PLUSP, MINUSP  
+* [Arithemtic & Logical operations](#arithemtic-and-logical-operations)
+* [Relational operators for numbers](#relational-operators-for-numbers)
+
 # Primitive lisp functions
 [Dotted-Pair-Notation](https://www.gnu.org/software/emacs/manual/html_node/elisp/Dotted-Pair-Notation.html)
 ### CONS
@@ -79,7 +89,7 @@ foo                   ;the fist item in foo was set to 4 by setf
 (4 2 3)
 ```
 
-# List processing functions - system function set 
+# List processing functions
 ## LIST
 It is indicated for constructing lists. It takes every parameter and creates a new list with them. list returns a list containing the supplied objects.
 ```lisp
@@ -198,7 +208,7 @@ Check if n is a strictly positive number.
 ## MINUSP subr 1 (n): T, NIL
 Check if n is a strictly negative number.
 
-# Arithemtic & Logical operations
+# Arithemtic and Logical operations
 Assume variable A holds 10 and variable B holds 20 then:
 * **(+ A B)** will give 30
 * **(- A B)** will give -10
