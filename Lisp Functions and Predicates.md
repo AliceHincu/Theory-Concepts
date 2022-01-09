@@ -152,3 +152,76 @@ Returns T if the argument is a list and NIL otherwise.
 (LISTP ‘(A B C)) = T;
 (LISTP NIL) = T;
 ```
+
+## EQ, EQL, EQUAL
+**EQ** - Returns true if its arguments are the same, identical object; otherwise, returns false. <br>
+**EQUAL** - Returns T if the values of the arguments are equivalent S-expressions. <br>
+**EQL** - Returns T if the arguments are EQ or if they are the same non-structured values (that is, the same numeric values for numbers of the same type or the character values).
+
+(EQ, EQL, EQUAL)[https://stackoverflow.com/questions/547436/whats-the-difference-between-eq-eql-equal-and-equalp-in-common-lisp]
+
+## NULL subr 1 (e): T, NIL
+Returns T if the argument is evaluated to an empty list or null atom and NIL otherwise
+
+## MEMBER
+It is used to check the inclusion of an S-expression in a list. The verification is done only at a superficial level. If some element satisfies the test, the tail of list beginning with this element is returned; otherwise nil is returned.
+
+```lisp
+(SETQ X ‘(A B (C D) E))
+(MEMBER ‘C X) = NIL
+(MEMBER ‘B X) = (B (C D) E)
+(MEMBER ‘E X) = (E)
+(MEMBER ‘(C D) X) = NIL
+```
+
+## NUMBERP 
+Check if it’s a number or not.
+```lisp
+(NUMBERP 12) =>  true
+(NUMBERP nil) =>  false
+(NUMBERP (cons 1 2)) =>  false
+```
+
+## ZEROP
+Check if n is the number 0 or not. If the argument is not evaluated by number the result is undefined or error.
+
+```lisp
+(ZEROP 0) =>  true
+(ZEROP 1) =>  false
+(ZEROP -0.0) =>  true
+(ZEROP 0/100) =>  true
+```
+
+## PLUSP subr 1 (n): T, NIL
+Check if n is a strictly positive number.
+
+## MINUSP subr 1 (n): T, NIL
+Check if n is a strictly negative number.
+
+# Arithemtic & Logical operations
+Assume variable A holds 10 and variable B holds 20 then:
+* **(+ A B)** will give 30
+* **(- A B)** will give -10
+*	**(* A B)** will give 200
+* **(/ B A)** will give 2
+* **(mod B A )** will give 0
+* **(incf A 3)** will give 13
+* **(decf A 4)** will give 9
+* (**1+** 99) =>  100 
+* (**1-** 100) =>  99 
+* (**MAX** 6 12) =>  12 
+* (**MIN** 6 12) =>  6
+
+Logical operations:
+* **NOT** : Returns T if argument e is evaluated at NIL; otherwise, return NIL. It’s equivalent to the NULL function.
+* **AND** :  It is evaluated from left to right until the first NIL, in which case NIL is returned; otherwise the result is the value of the last argument.
+* **OR** : It is evaluated from left to right to the first element evaluated at a value other than NIL, in which case that value is returned; otherwise the result is NIL.
+
+Remark: AND and OR do not evaluate all parameters unconditionally. They only evaluate from left to right until a decision on the result can be made. At that point the functions end and the rest of parameters are not evaluated. AND and OR are thus special operators.
+
+# Relational operators for numbers
+* **=** subr 2 (n n): T, NIL
+* **<** subr 2 (n n): T, NIL
+* **<=** subr 2 (n n): T, NIL
+* **>** subr 2 (n n): T, NIL
+* **>=** subr 2 (n n): T, NIL
