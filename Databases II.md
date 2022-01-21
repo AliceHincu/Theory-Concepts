@@ -8,7 +8,7 @@ Basically:
 **If we want to use a database, we must first describe the data according to a data model.**
 
 # Data description model (DDM)
-**Data modeling** (data modelling) **is the process of creating a data model for the data to be stored in a database**. Data modeling helps in the visual representation of data and enforces business rules, regulatory compliances, and government policies on the data. 
+We are using **data models** to describe the data that we want to keep in our databases.
 
 **The Data Description Model is a set of concepts and rules used to model data**. These concepts are used to **describe the structure of the data**, to **specify consistency 
 constraints**(that is correctness constrains) and to **describe relationships among data**. It is defined as an abstract model that organizes data description, data semantics, and consistency constraints of data. The data model **emphasizes on what data is needed and how it should be organized** instead of what operations will be performed on data. Data Model is like an architect’s building plan, which helps to build conceptual models and set a relationship between data items.
