@@ -1,13 +1,20 @@
 # Relational Model :nerd_face:
 ![](https://www.tutorialspoint.com/dbms/images/relational_model_table.png)
 
-**Relational database model is a type of database that stores information in the form of logically related two-dimensional tables**. The most popular data model in DBMS is the Relational Model. It is more scientific a model than others. This model is based on first-order predicate logic and defines a table as an **n-ary relation**. **The schema** of a relation specifies **the name of the relation, the name and type of each field/attribute/column**.  The term relational stems from the fact that each table in the database contains information related to a single subject and only that subject.
+**Relational Model represents the database as a collection of relations**. A relation is nothing but a table of values. Every row in the table represents a collection of related data values. These rows in the table denote a real-world entity or relationship. This model is based on first-order predicate logic and defines a table as an **n-ary relation**. 
 
-ex: Movie(mid: string, title: string, director: string, year: integer)
+**The schema** of a relation specifies:
+* **the name of the relation**, 
+* **the name and type of each field/attribute/column**.  
 
-Data is stored in tables called **relations**. Relations can be normalized. In normalized relations, values saved are atomic values. \
-Each row in a relation contains a unique value. \
-Each column in a relation contains values from a same domain.
+Data is stored in **tables called relations**. Each row in a relation contains a unique value. Each column in a relation contains values from a same domain.
+
+### Example
+**The relation schema**: Movie(mid: string, title: string, director: string, year: integer)
+
+**The instance** of the Movie relation(the whole table):
+![image](https://user-images.githubusercontent.com/53339016/150638929-06490d0d-2fd6-4706-a430-96cbd93c9783.png)
+
 
 ## Relational Model Concepts
 * **Attribute**: Each column in a Table. Attributes are the properties which define a relation. e.g., Student_Rollno, NAME,etc.
