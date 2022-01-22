@@ -233,4 +233,129 @@ Result:
 ![image](https://user-images.githubusercontent.com/53339016/150656350-26f35118-3ba3-4b51-b20d-516c68ca3692.png)
 
 
-# Aggregate values
+# Aggregation operators
+* **AVG** – calculate the average value of a set.
+* **COUNT** – return the number of items in a set.
+* **SUM** – return the sum of all or distinct items of a set.
+* **MAX** – find the maximum value in a set.
+* **MIN** – find the minimum value in a set.
+
+```sql
+-- Find the number of students.
+SELECT COUNT(*)
+FROM Students S
+
+-- Find the average and minimum age for group 924.
+SELECT AVG(S.age), MIN(S.age)
+FROM Students S
+WHERE S.sgroup = 924
+
+-- Find the number of groups that have at least one student called Mihai.
+SELECT COUNT(DISTINCT S.sgroup)
+FROM Students S
+WHERE S.sname = 'Mihai'
+
+-- Find the name and age of the oldest student.
+SELECT S.sname, S.age
+FROM Students S
+WHERE S.age = ANY
+      (SELECT MAX(S2.age)
+       FROM Students S2)
+```
+# Grouping Data
+## Group by
+The GROUP BY clause is an optional clause of the SELECT statement that combines rows into groups based on matching values in specified columns. One row is returned for each group.
+
+You often use the GROUP BY in conjunction with an aggregate function such as MIN, MAX, AVG, SUM, or COUNT to calculate a measure that provides the information for each group.
+
+It is important to emphasize that the **WHERE clause is applied before rows are grouped whereas the HAVING clause is applied after rows are grouped**. In other words, the WHERE clause is applied to rows whereas the HAVING clause is applied to groups.
+
+To sort the groups, you add the ORDER BY clause after the GROUP BY clause.
+
+**Example**: To find the headcount of each department, you group the employees by the department_id column, and apply the COUNT function to each group as the following query:
+```sql
+SELECT department_id, COUNT(employee_id) headcount
+FROM employees
+GROUP BY department_id;
+```
+
+![image](https://user-images.githubusercontent.com/53339016/150656755-2794842a-9b47-40e5-a93f-c43c02f131e1.png)
+
+## Having
+To specify a condition for groups, you use the HAVING clause.
+
+### HAVING vs. WHERE
+The WHERE clause applies the condition to individual rows before the rows are summarized into groups by the GROUP BY clause. However, the HAVING clause applies the condition to the groups after the rows are grouped into groups.
+
+Therefore, it is important to note that the HAVING clause is applied after whereas the WHERE clause is applied before the GROUP BY clause.
+
+**Example1**: To find the managers who have at least five direct reports, you add a HAVING clause to the query above as the following:
+```sql
+SELECT manager_id, first_name, last_name, COUNT(employee_id) direct_reports
+FROM employees
+WHERE manager_id IS NOT NULL
+GROUP BY manager_id
+HAVING direct_reports >= 5;
+```
+
+**Example2**: SQL HAVING with SUM function example
+The following statement calculates the sum of salary that the company pays for each department and selects only the departments with the sum of salary between 20000 and 30000.
+```sql
+SELECT  department_id, SUM(salary)
+FROM employees
+GROUP BY department_id
+HAVING SUM(salary) BETWEEN 20000 AND 30000
+ORDER BY SUM(salary);
+```
+
+**READ THIS!!!!(The answer)**
+[Why can't you mix Aggregate values and Non-Aggregate values in a single SELECT?](https://stackoverflow.com/questions/5920070/why-cant-you-mix-aggregate-values-and-non-aggregate-values-in-a-single-select)
+
+Aggregates doesn't work on a complete result, they only work on a group in a result.
+
+Consider a table containing:
+```
+Person   Pet
+-------- --------
+Amy      Cat
+Amy      Dog
+Amy      Canary
+Dave     Dog
+Susan    Snake
+Susan    Spider
+```
+If you use a query that groups on Person, it will divide the data into these groups:
+```
+Amy:
+  Amy    Cat
+  Amy    Dog
+  Amy    Canary
+Dave:
+  Dave   Dog
+Susan:
+  Susan  Snake
+  Susan  Spider
+```
+If you use an aggreage, for exmple the count aggregate, it will produce one result for each group:
+```
+Amy:
+  Amy    Cat
+  Amy    Dog
+  Amy    Canary    count(*) = 3
+Dave:
+  Dave   Dog       count(*) = 1
+Susan:
+  Susan  Snake
+  Susan  Spider    count(*) = 2
+```
+So, the query ```select Person, count(*) from People group by Person``` gives you one record for each group:
+```
+Amy    3
+Dave   1
+Susan  2
+```
+If you try to get the Pet field in the result also, that doesn't work because there may be multiple values for that field in each group.
+
+(Some databases, like MySQL, does allow that anyway, and just returns any random value from within the group, and it's your responsibility to know if the result is sensible or not.)
+
+If you use an aggregate, but doesn't specify any grouping, the query will still be grouped, and the entire result is a single group. So the query ```select count(*) from Person``` will create a single group containing all records, and the aggregate can count the records in that group. The result contains one row from each group, and as there is only one group, there will be one row in the result.
