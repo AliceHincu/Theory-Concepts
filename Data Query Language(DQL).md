@@ -22,3 +22,29 @@ SELECT * FROM Student;
 -- Query to fetch the fields ROLL_NO, NAME, AGE from the table Student:
 SELECT ROLL_NO, NAME, AGE FROM Student;
 ```
+
+## How does select work?
+Let's say we have these tables:
+
+![image](https://user-images.githubusercontent.com/53339016/150652099-bdd9ba60-2d6b-4281-b348-c268c25e4b89.png)
+
+And this query:
+```sql
+SELECT R.Name
+FROM Researchers R, AuthorContribution A
+WHERE R.RID = A.RID AND A.PID = 307
+```
+
+The first step is to calculate the cross product of tables Researchers and AuthorContribution:
+
+![image](https://user-images.githubusercontent.com/53339016/150652132-0377c808-a0c4-46e9-a947-588eb169afca.png)
+
+RID appears in both Researchers and AuthorContribution => it must be qualified (e.g., in the WHERE clause). So, we remove the rows in the cross product that don't satisfy the condition:
+* **R.RID = A.RID** (red means it satisfies the condition)
+![image](https://user-images.githubusercontent.com/53339016/150652199-a9b17298-e5fa-4660-b3cc-102dbcb5c7fd.png)
+* A.PID = 307 (purple means it satisfies the condition)
+![image](https://user-images.githubusercontent.com/53339016/150652218-60a3f77e-6818-4000-bf1c-177a870f480e.png)
+* We end up with this table :
+![image](https://user-images.githubusercontent.com/53339016/150652235-00c04242-dae8-4fdc-b5c6-353206a4fef3.png)
+* Then we remove the column that don't appear in the SELECT (so we only select R.Name)
+![image](https://user-images.githubusercontent.com/53339016/150652257-adc2412c-24ae-4f6e-9f78-492c656c281c.png)
