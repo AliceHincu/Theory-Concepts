@@ -7,32 +7,50 @@ In 1971, DBTG(DataBase Task Group) realized the requirement for a two-level appr
 
 
 ### ---- Internal level / Physical
-At the internal level, **the database is represented physically on the computer**. It emphasizes the physical implementation of the database to do **storage space utilization** and to **achieve the optimal runtime performance, and data encryption techniques**. It interfaces with the operating system to place the data on storage files and build the storage space, retrieve the data, etc.
+At the internal level, **the database is represented physically on the computer**. It emphasizes the physical implementation of the database to:
+* do **storage space utilization** 
+* and to **achieve the optimal runtime performance, and data encryption techniques**. 
 
-**This is the lowest level of data abstraction**. It tells us **how the data is actually stored in memory**. It defines data-structures to store data and access methods used by the database. Actually, it is decided by developers or database application programmers how to store the data in the database. It is a very complex level to understand. 
+* It interfaces with the operating system to place the data on storage files and build the storage space, retrieve the data, etc.
 
-For example, customer's information is stored in tables and data is stored in the form of blocks of storage such as bytes, gigabytes etc. Suppose we need to store the details of an employee. Blocks of storage and the amount of memory used for these purposes are kept hidden from the user. 
+**This is the lowest level of data abstraction**. It tells us **how the data is actually stored in memory**. It contains information about how relations are stored on the disk, about the creation of indexes (data structures that speed up queries).
+
+For example, customer's information is stored in tables and data is stored in the form of blocks of storage such as bytes, gigabytes etc. Suppose we need to store the details of an employee. **Blocks of storage and the amount of memory used for these purposes are kept hidden from the user**. 
 
 
 ### ---- Conceptual level / Logical Level
-Logical level is the intermediate level or next higher level. **It describes what data is stored in the database and what relationship exists among those data**. It tries to describe the entire or whole data because it describes what tables to be created and what are the links among those tables that are created. It is less complex than the physical level. Logical level is used by developers or database administrators (DBA). So, overall, the logical level contains tables (fields and attributes) and relationships among table attributes.
+Logical level is the intermediate level or next higher level. **It describes what data is stored in the database and what relationship exists among those data**. It tries to describe the entire or whole data because it describes what tables to be created and what are the links among those tables that are created. It is less complex than the physical level. So, overall, the logical level contains tables (fields and attributes) and relationships among table attributes.
 
-**This level comprises(cuprinde) the information that is actually stored in the database in the form of tables**. It also stores the relationship among the data entities in relatively simple structures. At this level, the information available to the user at the view level is unknown. 
+At this level, the information available to the user at the view level is unknown. 
 
 We can store the various attributes of an employee and relationships, e.g. with the manager can also be stored. 
 
+Another example:
+* Student(sid: string, slastname: string, sfirstname: string, gpa: real)
+* Teacher(tid: string, tlastname: string, tfirstname: string, salary: real)
+* Course(cid: string, cname: string)
 
 ### ---- External level
-**It is how the user views the database**. The data of the database that is relevant to that user is described at this level. The external level consists of several different external views of the database. In the external view **only the entities, attributes, and relationships that the user wants are included**. The different views may have different ways of representing the same data. For example, one user may view name in the form (firstname, lastname), while another may view as (lastname, firstname). It also simplifies interaction with the user and it provides many views or multiple views of the same database.
+**It is how the user views the database**. The data of the database that is relevant to that user is described at this level. The external level **consists of several different external views** of the database. 
 
-**This is the highest level of abstraction**. Only a part of the actual database is viewed by the users. This level exists to ease the accessibility of the database by an individual user. Users view data in the form of rows and columns. Tables and relations are used to store data. Multiple views of the same database may exist. Users can just view the data and interact with the database, storage and implementation details are hidden from them. 
+In the external view **only the entities, attributes, and relationships that the user wants are included**. The different views may have different ways of representing the same data. For example, one user may view name in the form (firstname, lastname), while another may view as (lastname, firstname). It also simplifies interaction with the user and it provides many views or multiple views of the same database.
 
-For example, a user can interact with a system using GUI that is view level and can enter details at GUI or screen and the user does not know how data is stored and what data is stored, this detail is hidden from the user.
+**This is the highest level of abstraction**. For example, a user can interact with a system using GUI that is view level and can enter details at GUI or screen and the user does not know how data is stored and what data is stored, this detail is hidden from the user.
+
+Another example (from course):
+
+We keep an external structure with information about the best result for each student (the student's sid, last name and first name, the name of the corresponding course and the grade) named BestResults:
+
+BestResults(sid: string, slastname: string, sfirstname: string, cname: string, grade: real)
+
+* **BestResults is a view** whose definition is based on relations in the conceptual structure; conceptually, it's a relation, but its records are not stored in the database; they are computed on demand using BestResult's definition
+* adding BestResults to the conceptual schema => redundancy, the database is prone to errors, e.g., a record for a new grade is introduced in the Grade relation without operating a corresponding (necessary) change in the BestResults relation
+* a database can have several external structures, each customized for a group of users
 
 Taken from: [1](https://www.geeksforgeeks.org/the-three-level-ansi-sparc-architecture/), [2](https://www.geeksforgeeks.org/data-abstraction-and-data-independence/), [3](https://www.tutorialspoint.com/what-is-data-abstraction-in-dbms)
 
 # Data Independence
-Data Independence is defined as a property of DBMS that **helps you to change the Database schema at one level of a database system without requiring to change the schema at the next higher level**. Data independence helps you to keep data separated from all programs that make use of it. You can use this stored data for computing and presentation. In many systems, data independence is an essential function for components of the system.
+Data Independence is defined as a property of DBMS that **helps you to change the Database schema at one level of a database system without requiring to change the schema at the next higher level**.
 
 **Data independence is the ability to modify the scheme without affecting the programs and the application to be rewritten**. Data is separated from the programs, so that the changes made to the data will not affect the program execution and the application. We know the main purpose of the three levels of data abstraction is to achieve data independence. If the database changes and expands over time, it is very important that the changes in one level should not affect the data at other levels of the database. This would save time and cost required when changing the database.
 
@@ -52,11 +70,7 @@ The changes in the physical level may include changes using the following:
 ### ---- Logical Data Independence
 Logical view of data is the user view of the data. It presents data in the form that can be accessed by the end users.
 
-Codd’s Rule of Logical Data Independence says that u**sers should be able to manipulate the Logical View of data without any information of its physical storage**. Software or the computer program is used to manipulate the logical view of the data.
-
-Database administrator is the one who decides what information is to be kept in the database and how to use the logical level of abstraction. It provides the global view of Data. It also describes what data is to be stored in the database along with the relationship.
-
-The data independence provides the database in simple structure. It is based on application domain entities to provide the functional requirement. It provides abstraction of system functional requirements. Static structure for the logical view is defined in the class object diagrams. Users cannot manipulate the logical structure of the database.
+Codd’s Rule of Logical Data Independence says that **users should be able to manipulate the Logical View of data without any information of its physical storage**. Software or the computer program is used to manipulate the logical view of the data.
 
 The changes in the logical level may include:
 * Change the data definition.
