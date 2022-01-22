@@ -47,4 +47,5 @@ RID appears in both Researchers and AuthorContribution => it must be qualified (
 * We end up with this table :
 ![image](https://user-images.githubusercontent.com/53339016/150652235-00c04242-dae8-4fdc-b5c6-353206a4fef3.png)
 * Then we remove the column that don't appear in the SELECT (so we only select R.Name)
+
 ![image](https://user-images.githubusercontent.com/53339016/150652257-adc2412c-24ae-4f6e-9f78-492c656c281c.png)
