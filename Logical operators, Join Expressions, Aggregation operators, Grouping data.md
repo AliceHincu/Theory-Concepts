@@ -2,6 +2,8 @@
 * [Logical operators](#logical-operators) - ALL, AND, ANY, BETWEEN, EXISTS, IN, LIKE, NOT, OR
 * [Union, Intersect, and Except Operators](#union-intersect-and-except-operators) - UNION, INTERSECT, EXCEPT
 * [Join Expressions](#join-expressions) - INNER JOIN, LEFT JOIN, RIGHT JOIN, FULL OUTER JOIN
+* [Aggregation operators](#aggregation-operators) - AVG, COUNT, SUM, MAX, MIN
+* [Grouping Data](#grouping-data) - GROUP BY, HAVING
 # Logical operators
 | Operator | Description | 
 | -- | -- |
