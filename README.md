@@ -41,8 +41,10 @@ I have created this repository for myself, but you are free to read anything fro
       * [Entity-Relationship Model](https://github.com/913AliceHincu/Theory-Concepts/blob/main/Entity-Relationship%20Model.md)
     * [Keys - Types](https://github.com/AliceHincu/Theory-Concepts/blob/main/Keys%20-%20Types.md)
     * [Databases III](https://github.com/913AliceHincu/Theory-Concepts/blob/main/Databases%20III:%20Data%20abstraction%20and%20Independence.md) - Data abstraction and Independence
-    * [Darabases IV](https://github.com/913AliceHincu/Theory-Concepts/blob/main/Databases%20IV:%20SQL%20languages.md) - SQL languages
+    * [Darabases IV](https://github.com/913AliceHincu/Theory-Concepts/blob/main/Databases%20IV:%20SQL%20languages.md) - SQL languages, Data types
       * [DDL - Data definition language](https://github.com/AliceHincu/Theory-Concepts/blob/main/Data%20definition%20language(DDL).md) - CREATE, DROP, ALTER
+      * [DQL - Data Query Language](https://github.com/AliceHincu/Theory-Concepts/blob/main/Data%20Query%20Language(DQL).md) - SELECT
+      * [DML - Data Manipulation Language](https://github.com/AliceHincu/Theory-Concepts/blob/main/Data%20Manipulation%20Language(DML).md) - INSERT, UPDATE, DELETE
     * [Normalization in DBMS](https://github.com/AliceHincu/Theory-Concepts/blob/main/Normalization%20in%20DBMS.md) - 1NF, 2NF ....
   * Lisp
     * [Lisp Functions and Predicates](https://github.com/AliceHincu/Theory-Concepts/blob/main/Lisp%20Functions%20and%20Predicates.md) 
