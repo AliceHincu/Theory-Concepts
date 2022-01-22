@@ -15,9 +15,16 @@ Data is stored in **tables called relations**. Each row in a relation contains a
 **The instance** of the Movie relation(the whole table):
 ![image](https://user-images.githubusercontent.com/53339016/150638929-06490d0d-2fd6-4706-a430-96cbd93c9783.png)
 
+A **relational database** is a collection of relations with distinct names.
+A **relational database schema** is collection of schemas for the relations in the database
+A **database instance** is a collection of relation instances, one / relational schema in the database schema. It must be legal, i.e., it must satisfy all the specified integrity constraints
 
 ## Relational Model Concepts
 * **Attribute**: Each column in a Table. Attributes are the properties which define a relation. e.g., Student_Rollno, NAME,etc.
+   * {A1, A2, ..., An} - a set of attributes
+   * Di = Dom(Ai) U {?} . 
+      * Dom(Ai) is **the domain of possible values** for attribute Ai. 
+      * the **undefined (null) value** is denoted here by {?}. It means unknown / not applicable. It can be used to check if a value has been assigned to an attribute (the attribute could have the undefined value). This value doesn't have a certain data type; attribute values of different types can be compared against this value (numeric, string, etc.)
 * **Tables** – In the Relational model, **the relations are saved in the table format**. It is stored along with its entities. A table has two properties: rows and columns. **Rows represent records and columns represent attributes.**
 * **Tuple** – It is nothing but a single row of a table, which contains a single record.
 * **Relation Schema**: A relation schema represents the name of the relation with its attributes.
@@ -31,9 +38,12 @@ Data is stored in **tables called relations**. Each row in a relation contains a
 ![](https://cdn.guru99.com/images/1/091318_0803_RelationalD1.png)
 
 ## Relational Integrity Constraints
-**Information Integrity** is the trustworthiness and dependability of information. More specifically, it is the accuracy, consistency and reliability of the information content, processes and systems. Information integrity is also a prerequisite, because you need it for many other management decisions. If certain information cannot be trusted and has a low level of integrity, than a business has a low chance of success. You need information integrity to have a successful business.
+**Information Integrity** is the trustworthiness and dependability of information. More specifically, it is the accuracy, consistency and reliability of the information content, processes and systems. If certain information cannot be trusted and has a low level of integrity, than a business has a low chance of success. You need information integrity to have a successful business.
   
-**Relational Integrity constraints** in DBMS are referred to conditions which must be present for a valid relation. These Relational constraints in DBMS are derived from the rules in the mini-world that the database represents. They are **sets of rules that can help maintain the quality of information that is put up**. Integrity constraints are mostly used when trying to promote accuracy and consistency of data that is found in a relational database.  This is very important to companies because information can be considered as an asset to certain organizations and it must be protected.
+**Relational Integrity constraints** are conditions specified on the database schema, restricting the data that can be stored in the database. These constraints are checked when the data is changed; operations that violate the constraints are not allowed (e.g., introducing a student with a CNP
+identical to a different student's CNP, entering data of the wrong type in a column, etc.) These Relational constraints in DBMS are derived from the rules in the mini-world that the database represents. They are **sets of rules that can help maintain the quality of information that is put up**. 
+
+Integrity constraints are mostly used when trying to promote accuracy and consistency of data that is found in a relational database.  This is very important to companies because information can be considered as an asset to certain organizations and it must be protected.
 
 There are many types of Integrity Constraints in DBMS. Constraints on the Relational database management system is mostly divided into three main categories are: 
 1. Domain Constraints 
@@ -41,9 +51,11 @@ There are many types of Integrity Constraints in DBMS. Constraints on the Relati
 3. Referential Integrity Constraints 
 
 ### ---- Domain Constraints
-**Domain constraints can be violated if an attribute value is not appearing in the corresponding domain or it is not of the appropriate data type.**
+**Domain constraints are conditions that must be satisfied by every relation instance: a column's values belong to its associated domain.**
 
-A domain integrity constraint is a set of rules that restricts the kind of attributes or values a column or relation can hold in the database table. For example, we can specify if a particular column can hold null values or not, if the values have to be unique or not, the data type or size of values that can be entered in the column, the default values for the column, etc.
+A domain integrity constraint is a set of rules that restricts the kind of attributes or values a column or relation can hold in the database table. 
+
+For **example**, we can specify if a particular column can hold null values or not, if the values have to be unique or not, the data type or size of values that can be entered in the column, the default values for the column, etc.
 
 **Example:**
 
@@ -55,9 +67,11 @@ The example shown demonstrates creating a domain constraint such that CustomerNa
 ### ---- Key Constraints
 An attribute that can uniquely identify a tuple in a relation is called the key of the table. The value of the attribute for different tuples in the relation has to be unique.
 
+From course: **Key constraint is a constraint stating that a subset of the attributes in a relation is a unique identifier for every tuple in the relation; this subset of attributes is minimal**. Two different records are not allowed to have identical values in all the fields that constitute a key, hence specifying a key is a restriction for the database.
+
 **Example:**
 
-In the given table, CustomerID is a key attribute of Customer Table. It is most likely to have a single key for one customer, CustomerID=1 is only for the CustomerName=”Google”.
+In the given table, CustomerID is a key attribute of Customer Table. It is most likely to have a single key for one customer: CustomerID=1 is only for the CustomerName=”Google”. We are not allowed to add another customer with the same ID.
 
 | CustomerID | CustomerName | Status |
 | -- | -- | -- |
@@ -65,8 +79,10 @@ In the given table, CustomerID is a key attribute of Customer Table. It is most 
 | 2	| Amazon | Active |
 | 3	| Apple	| Inactive |
 
-### ---- Referential Integrity Constraints
-Referential Integrity Constraint ensures that there always exists a valid relationship between two tables. This makes sure that if a foreign key exists in a table relationship then it should always reference a corresponding value in the second table or it should be null. **A FOREIGN KEY is a field (or collection of fields) in one table, that refers to the PRIMARY KEY in another table.** Example of foreign key:
+### ---- Referential Integrity/Foreign key Constraints
+Referential Integrity Constraint ensures that there always exists a valid relationship between two tables. This makes sure that if a foreign key exists in a table relationship, **then it should always reference a corresponding value** in the second table or it should be null. 
+
+**A FOREIGN KEY is a field (or collection of fields) in one table, that refers to the PRIMARY KEY in another table.** Example of foreign key:
 
 #### Persons Table
 | PersonID | LastName | FirstName | Age |
@@ -89,20 +105,18 @@ Referential Integrity Constraint ensures that there always exists a valid relati
 * The "PersonID" column in the "Orders" table is a **FOREIGN KEY** in the "Orders" table. (=> child table)
 
 The **FOREIGN KEY constraint** prevents invalid data from being inserted into the foreign key column, because it has to be one of the values contained in the parent table.
-**Example:**
 
-![](https://cdn.guru99.com/images/1/091318_0803_RelationalD2.png)
+* A foreign key **can be used to store 1:n associations** among entities: a person can correspond to several orders, and an order can be associated with at most one person
+* Foreign keys **can be used to store m:n associations** among entities: a student can enroll in several courses; multiple students can take a course; **storing such associations requires an additional table**
 
-In the above example, we have 2 relations, Customer and Billing. Tuple for CustomerID =1 is referenced twice in the relation Billing. So we know CustomerName=Google has billing amount $300
+![image](https://user-images.githubusercontent.com/53339016/150645064-c8b13119-4cd9-4e8e-a3a1-48ab10b5bc23.png)
+
+* Any value that appears in the student field of the Contracts relation must appear in the cnp field of the Students relation, but there may be students who haven't enrolled in any courses yet (i.e., cnp values in Students that don't appear in the student column from Contracts)
+* The foreign key in the Contracts relation must have the same number of columns as the referenced key from Students (preferably, the primary key); the data types of the corresponding columns must be compatible, however, the column names can be different
+
+If you want to delete a Student that appears in Contracts, the operation **will be rejected**(because it violates the specified integrity constraints). However, in some cases, instead of rejecting the operation, the DBMS will make additional changes to the data, so in the end all integrity constraints are satisfied. For example, you can **cascade the operation**: the Students row and the referencing rows in Contracts are deleted. See the CREATE TABLE statement to see other options.
 
 [Read more about Integrity Constraints in DBMS](https://www.educba.com/integrity-constraints-in-dbms/)
-
-## Operations in Relational Model
-Four basic update operations performed on relational database model are: Insert, update, delete and select.
-* **Insert** is used to insert data into the relation
-* **Delete** is used to delete tuples from the table.
-* **Modify** allows you to change the values of some attributes in existing tuples.
-* **Select** allows you to choose a specific range of data.
 
 ## Best Practices for creating a Relational Model
 * Data needs to be represented as a collection of relations
