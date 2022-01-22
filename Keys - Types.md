@@ -30,3 +30,9 @@ A **foreign key** (FK) is an attribute in a table that references the primary ke
 In the COMPANY database example below, DepartmentID is the foreign key:
 
 Employee(EID, First Name, Last Name, SIN, Address, Phone, BirthDate, Salary, **_DepartmentID_**)
+
+Possible actions for a foreign key:
+• NO ACTION   - the operation is not allowed if it violates integrity constraints
+• SET NULL    - the foreign key value is set to null
+• SET DEFAULT - the foreign key value is set to the default value
+• CASCADE     - the delete / update is performed on the parent table(where FK is the primary key), but it generates corresponding deletes / updates in the child table(where the FK is)
