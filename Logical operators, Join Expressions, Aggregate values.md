@@ -169,9 +169,9 @@ SELECT E2.sid FROM Exams E2, Courses C2 WHERE E2.cid = C2.cid AND C2.credits = 5
 
 # Join Expressions
 Let's say we have these tables: 
-![image](https://user-images.githubusercontent.com/53339016/150655737-e6593925-b6c1-4660-96b6-e45178e22b2e.png)
+![image](https://user-images.githubusercontent.com/53339016/150656396-dd9b6128-f2a8-416a-96ad-96999485c7d7.png)
 
-### Inner join
+## Inner join
 ![image](https://user-images.githubusercontent.com/53339016/150655721-c04ba225-423e-4af9-a7e3-c4c791a722ae.png)
 For each row in table A, the inner join clause finds the matching rows in table B. If a row is matched, it is included in the final result set.
 
@@ -184,6 +184,53 @@ source1 [alias] [INNER] JOIN source2 [alias] ON condition
 SELECT *
 FROM Students S INNER JOIN Exams E ON S.SID = E.StdId
 ```
+Result:
+
 ![image](https://user-images.githubusercontent.com/53339016/150655802-78320ac1-f67d-46c3-91e9-fdb28be3dccd.png)
+
+## Left join
+![image](https://user-images.githubusercontent.com/53339016/150655911-9f5867ff-26fb-4d22-87de-d0cc638b31c1.png)
+
+```sql
+source1 [alias] LEFT [OUTER] JOIN source2 [alias] ON condition
+```
+
+**Example**: find all the students' grades; include students with no exams; the students' names must appear in the answer set
+```sql
+SELECT *
+FROM Students S LEFT JOIN Exams E ON S.SID = E.StdId
+```
+Result:
+![image](https://user-images.githubusercontent.com/53339016/150656426-1f10f00e-a344-4c7a-83b7-af1432842aca.png)
+
+## Right join
+```sql
+source1 [alias] RIGHT [OUTER] JOIN source2 [alias] ON condition
+```
+
+**Example**: find all the exams (including the names of the courses); include courses with no exams
+```sql
+SELECT *
+FROM Exams E RIGHT JOIN Courses C ON E.CrsId = C.CID
+```
+Result:
+![image](https://user-images.githubusercontent.com/53339016/150656355-cddec43a-9e81-4dad-84d6-4e5e4dc2dfbd.png)
+
+
+## Full outer join
+![image](https://user-images.githubusercontent.com/53339016/150656372-291cabfe-21a3-4454-8de6-3bad5d855148.png)
+
+```sql
+source1 [alias] FULL [OUTER] JOIN source2 [alias] ON condition
+```
+
+**Example**: find all the exams; include students with no exams and grades given by mistake to nonexistent students; the result should also contain students' names
+```sql
+SELECT *
+FROM Students S FULL JOIN Exams E ON S.SID = E.StdId
+```
+Result:
+![image](https://user-images.githubusercontent.com/53339016/150656350-26f35118-3ba3-4b51-b20d-516c68ca3692.png)
+
 
 # Aggregate values
