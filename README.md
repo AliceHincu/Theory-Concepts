@@ -39,6 +39,7 @@ I have created this repository for myself, but you are free to read anything fro
     * [Databases II](https://github.com/913AliceHincu/Theory-Concepts/blob/main/Databases%20II.md) - Database, Data description model (DDM) 
       * [Relational Model](https://github.com/913AliceHincu/Theory-Concepts/blob/main/Relational%20Model.md)
       * [Entity-Relationship Model](https://github.com/913AliceHincu/Theory-Concepts/blob/main/Entity-Relationship%20Model.md)
+    * [Keys - Types](https://github.com/AliceHincu/Theory-Concepts/blob/main/Keys%20-%20Types.md)
     * [Databases III](https://github.com/913AliceHincu/Theory-Concepts/blob/main/Databases%20III:%20Data%20abstraction%20and%20Independence.md) - Data abstraction and Independence
     * [Darabases IV](https://github.com/913AliceHincu/Theory-Concepts/blob/main/Databases%20IV:%20SQL%20languages.md) - SQL languages
       * [Data definition language]() 
