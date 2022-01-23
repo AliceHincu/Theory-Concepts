@@ -151,3 +151,112 @@ After natural join we will get the table:
 | p1 | Jack Sparrow | 1 | BP | t1 | 100 |
 | p2 | Elixabeth Swann | 2 | BP | t9 | 5000 |
 | p3 | Hector Barbossa | 3 | BP | t1 | 200 |
+
+## IDK
+![image](https://user-images.githubusercontent.com/53339016/150700250-6b034a93-61d0-4ec1-8e98-736e992f492a.png)
+
+take the ids of cruel pirates that have no shares in tresures from serbia :
+![image](https://user-images.githubusercontent.com/53339016/150700356-d643e401-7962-4fc2-88ec-a4c0577598da.png)
+
+## Left outer join
+Notation (in these notes): 𝑅1 ⋉_{C} 𝑅2
+
+Resulting relation:
+* schema: the attributes of 𝑅1 followed by the attributes of 𝑅2
+* tuples: 
+   * tuples from the condition join 𝑅1 ⨂_{c} 𝑅2 + 
+   * the tuples in 𝑅1 that were not used in 𝑅1 ⨂_{c} 𝑅2 combined with the null value for the attributes of 𝑅2
+* equivalent SELECT statement
+```sql
+SELECT *
+FROM R1 LEFT OUTER JOIN R2 ON C
+```
+
+## Right outer join
+Notation: 𝑅1 ⋊_{C} 𝑅2
+
+Resulting relation:
+* schema: the attributes of 𝑅1 followed by the attributes of 𝑅2
+* tuples: 
+   * tuples from the condition join 𝑅1 ⨂_{c} 𝑅2 + 
+   * the tuples in 𝑅2 that were not used in 𝑅1 ⨂_{c} 𝑅2 combined with the null value for the attributes of 𝑅1
+* equivalent SELECT statement
+```sql
+SELECT *
+FROM R1 RIGHT OUTER JOIN R2 ON C
+```
+
+## Full outer join
+Notation: 𝑅1 ⋈_{C} 𝑅2
+
+Resulting relation:
+* schema: the attributes of 𝑅1 followed by the attributes of 𝑅2
+* tuples:
+   * tuples from the condition join 𝑅1 ⨂_{c} 𝑅2 +
+   * the tuples in 𝑅1 that were not used in 𝑅1 ⨂_{c} 𝑅2 combined with the null value for the attributes of 𝑅2 +
+   * the tuples in 𝑅2 that were not used in 𝑅1 ⨂_{c} 𝑅2 combined with the null value for the attributes of 𝑅1
+* equivalent SELECT statement
+```sql
+SELECT *
+FROM R1 FULL OUTER JOIN R2 ON C
+```
+
+## Left semi join
+Notation: 𝑅1 ⊳ 𝑅2
+
+Resulting relation:
+* schema: 𝑅1's schema
+* tuples: the tuples in 𝑅1 that are used in the natural join 𝑅1 ∗ 𝑅2
+
+### Example
+If we have this 2 tables:
+
+|Pirates|Shares|
+|--|--|
+|<table> <tr><th>PID</th><th>Name</th><th>Ruthlessness</th><th>Ship</th></tr><tr><td>p1</td><td>Jack Sparrow</td><td>1</td><td>BP</td></tr><tr><td>p2</td><td>Elizabeth Swann</td><td>2</td><td>BP</td></tr><tr><td>p3</td><td>Hector Barbossa</td><td>3</td><td>BP</td></tr><tr><td>p4</td><td>Will Turner</td><td>1</td><td>FD</td></tr> </table>| <table> <tr><th>PID</th><th>TID</th><th>Value</th></tr><tr><td>p1</td><td>t1</td><td>100</td></tr><tr><td>p2</td><td>t9</td><td>5000</td></tr><tr><td>p3</td><td>t1</td><td>200</td></tr> </table>|
+
+After left semi join we will get the table:
+| PID | Name | Ruthlessness | Ship |
+| -- | -- | -- | -- |
+| p1 | Jack Sparrow | 1 | BP |
+| p2 | Elixabeth Swann | 2 | BP |
+
+## Right semi join
+Notation: 𝑅1 ⊲ 𝑅2
+
+Resulting relation:
+* schema: 𝑅2's schema
+* tuples: the tuples in 𝑅2 that are used in the natural join 𝑅1 ∗ 𝑅2
+
+## Division
+Notation: 𝑅1 ÷ 𝑅2 𝑅1[𝛼], 𝑅2[𝛽], 𝛽 ⊂ 𝛼
+
+Resulting relation:
+* schema: 𝛼 − 𝛽
+* tuples: a record 𝑟 ∈ 𝑅1÷𝑅2 if ∀ 𝑟2 ∈ 𝑅2, ∃𝑟1 ∈ 𝑅1 such that:
+   * 𝜋𝛼−𝛽 𝑟1 = 𝑟
+   * 𝜋𝛽 𝑟1 = 𝑟2
+   * i.e., a record 𝑟 belongs to the result if in 𝑅1 𝑟 is concatenated with every record in 𝑅2
+
+Basically:
+
+If we have a table like this:
+| PID | TID |
+| -- | -- |
+| p1 | t1 |
+| p1 | t2 |
+| p1 | t3 |
+| p2 | t1 |
+| p2 | t2 |
+| p3 | t1 |
+
+And 3 tables like this:
+|T1|T2|T3|
+|--|--|--|
+|<table> <tr><th>TID</th></tr><tr><td>t1</td></tr> </table>| <table> <tr><th>TID</th></tr><tr><td>t1</td></tr><tr><td>t2</td></tr> </table>| <table> <tr><th>TID</th></tr><tr><td>t1</td></tr><tr><td>t2</td></tr><tr><td>t3</td></tr> </table> | 
+
+We'll have: 
+![image](https://user-images.githubusercontent.com/53339016/150702170-b0ebfda0-fb3d-4b20-8ec6-9be4b8843a6a.png)
+
+## Independent subset of operators
+For the previously described query language, with operators: {𝜎, 𝜋, ×, ∪, −, ∩, ⨂, ∗, ⋉, ⋊, ⋈, ⊳, ⊲, ÷} **an independent set of operators is {𝜎, 𝜋, ×, ∪, −}**
