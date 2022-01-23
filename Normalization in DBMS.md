@@ -162,6 +162,20 @@ The key is {StudentName, Couse}, and as we can oberse, we have this dependency: 
 
 The second rule isn't respected. We can get rid of this redundancy(due to this functional dependency) by decomposiong our original relation into two relations: RESULTS[**StudentName, Course**, Grade] and COURSES[**Course**, FacultyMember]. From the original relation we'll remove the dependent(FacultyMmember), and the determinant(Course) we'll be the primary key. 
 
+So this table:
+| StudentName | Course | Grade | Faculty Member |
+| -- | -- | -- | -- |
+| Pop Ioana | Computer Networks | 10 | Matei Ana |
+| Vlad Ana | Probabilities and Statistics | 10 | Simion Bogdan |
+| Vlad Ana | Computer Networks | 9.98 | Matei Ana |
+| Dan Andrei | Probabilities and Statistics | 10 | Simion Bogdan |
+| Popescu Alex | Operating Systems | 9.99 | Matei Ana |
+
+Becomes these tables:
+|RESULTS|COURSES|
+|--|--|
+|<table> <tr><th>StudentName</th><th>Course</th><th>Grade</th></tr><tr><td>Pop Ioana</td><td>Computer Networks</td><td>10</td></tr><tr><td>Vlad Ana</td><td>Probabilities and Statistics</td><td>10</td></tr><tr><td>Vlad Ana</td><td>Computer Networks</td><td>9.98</td></tr><tr><td>Dan Andrei</td><td>Probabilities and Statistics</td><td>10</td></tr><tr><td>Popescu Alex</td><td>Operating Systems</td><td>9.99</td></tr> </table>| <table> <tr><th>Course</th><th>FacultyMember</th></tr><tr><td>Computer Networks</td><td>Matei Ana</td></tr><tr><td>robabilities and Statistics</td><td>Simion Bogdan</td></tr><tr><td>Operating Systems</td><td>Matei Ana</td></tr> </table>|
+
 
 ## 3NF (Third Normal Form) Rules
 * **Be in 2NF**
