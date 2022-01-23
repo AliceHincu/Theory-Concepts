@@ -55,18 +55,39 @@ Here is a **list of Normal Forms** in SQL:
 * 5NF (Fifth Normal Form)
 * 6NF (Sixth Normal Form)
 
-Let's say we have this example: Assume, a video library maintains a database of movies rented out. Without any normalization in database, all information is stored in one table as shown below
-![](https://www.guru99.com/images/NormalizationTable1.png)
-
 ## 1NF 
+If a relation contains a composite or multi-valued attribute, it violates the first normal form, or **the relation is in first normal form if it does not contain any composite or multi-valued attribute**. A relation is in first normal form if every attribute in that relation is singled valued attribute. 
+
 Rules: 
 * **Each table cell should contain a single value.**
 * **Each record needs to be unique**.
 
-The above example in 1NF:
-![](https://www.guru99.com/images/1NF.png)
+### Example
+Let's say we have this table:
 
-In our database, we have two people with the same name Robert Phil, but they live in different places. Hence, we require both Full Name and Address to identify a record uniquely. That is a **composite key**. A composite key is a primary key composed of multiple columns used to identify a record uniquely
+Student(name, birthyear, group, course, grade) with the key "name".
+
+![image](https://user-images.githubusercontent.com/53339016/150660084-f97c8b93-9859-4e08-825c-031377bd2cec.png)
+
+We have a **composite repeating attribute**: the pair {COURSE, GRADE}
+
+### Example2
+BOOK(Bid, AuthorsNames, Title, Publisher, PublishingYear, Keyphrases) with the key Bid.
+
+![image](https://user-images.githubusercontent.com/53339016/150660139-65b522f2-6496-4ee6-9dfd-cf64b9d0ff32.png)
+
+We have a **simple repeating attribute**: AuthorsNames, KeyPhrases.
+
+### How to solve this problem
+If you have a relation with repeating attribute, the idea would be to decompose it such that the collection the relations contains all the data in the original relation, and the decomposition is good.
+
+**You replace the relation with the repeating attribute by a collection of other relations, via a good decomposition and the repeating attribute is now not repeating anymore.**
+
+On the Example2, we have 2 separate simple repeating attributes, so we are gonna decompose the book relation into 3 tables: BOOKS[Bid, Title, Publisher, PublishingYear], AUTHORS[Bid, AuthorName], KEYPHRASES[Bid, Keyphrase]
+
+![image](https://user-images.githubusercontent.com/53339016/150660330-3768ee5b-3e2a-4033-969a-abbd7f42aefb.png)
+![image](https://user-images.githubusercontent.com/53339016/150660334-f39909e0-2901-4a2b-acdf-63ced34f3493.png)
+
 
 ## 2NF
 Rules:
