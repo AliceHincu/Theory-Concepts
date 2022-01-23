@@ -46,6 +46,7 @@ I have created this repository for myself, but you are free to read anything fro
       * [DQL - Data Query Language](https://github.com/AliceHincu/Theory-Concepts/blob/main/Data%20Query%20Language(DQL).md) - SELECT
       * [DML - Data Manipulation Language](https://github.com/AliceHincu/Theory-Concepts/blob/main/Data%20Manipulation%20Language(DML).md) - INSERT, UPDATE, DELETE
       * [Logical operators, Join Expressions, Aggregation operators, Grouping data](https://github.com/AliceHincu/Theory-Concepts/blob/main/Logical%20operators,%20Join%20Expressions,%20Aggregation%20operators,%20Grouping%20data.md)
+    * [Functional dependency](https://github.com/AliceHincu/Theory-Concepts/blob/main/Functional%20dependency.md) 
     * [Normalization in DBMS](https://github.com/AliceHincu/Theory-Concepts/blob/main/Normalization%20in%20DBMS.md) - 1NF, 2NF ....
   * Lisp
     * [Lisp Functions and Predicates](https://github.com/AliceHincu/Theory-Concepts/blob/main/Lisp%20Functions%20and%20Predicates.md) 
