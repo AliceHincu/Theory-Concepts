@@ -220,7 +220,10 @@ Example: For table EX_SCHEDULE(Date, Hour, FacultyMember, Room, Group) we can ha
 This relation is in 3NF, but we still have redundancy.  We decompose it like this: 
 * EX_SCHEDULE[Date, Hour, FacultyMember, Group] (we took out the dependent)
    * we still have the keys {Date, Group} and {FacultyMember, Date, Hour}, but {Room, Date, Hour} is lost.
-* ROOM_ALLOCATION[FacultyMember, Date, Room]
+* ROOM_ALLOCATION[FacultyMember, Date, Room] 
+   * here we move {Room, Date, Hour}  
+
+Now there are not any dependencies in which the left side is not a key. Reformulation: **in the left side, we only need to have keys**. Before, we had the key{Room, Date, Hour} and the dependency: FD{FacultyMember, Date}->{Room}, and FacultyMember was not a key. 
  
 ## 4NF 
 If no database table instance contains two or more, independent and multivalued data describing the relevant entity, then it is in 4th Normal Form.
