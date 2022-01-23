@@ -11,37 +11,28 @@ What do Insertion, Update and Deletion Anomalies look like? Let's suppose we hav
 | p5 | Davy Jones | 4 | FD | 9k |
 
 ### Update Anomaly
-Suppose you want to change the salary for a particular reputation. If you only change it in a tuple and not the other ones, we will have an inconsistancy in the database. We have tomake sure all the tuples are modified accordigly. (For repuration 5, you need to change both the first and third row)
+Suppose you want to change the salary for a particular reputation. If you only change it in a tuple and not the other ones, we will have an inconsistancy in the database. We have to make sure all the tuples are modified accordigly. (For repuration 5, you need to change both the first and third row)
 
 ### Insertion Anomaly
-Can we add a salary for a particular reputation value if currently, in the database, there is no pirate with that reputation ? (Let's say for reputation 7 we want 20k salary). There is no pirate, but can we add a row like  "NULL, NULL, 7, NULL, 20K" ? No, because the PK is null. So we cannot do it. To add a new rep, we also need to add a pirate with that rep. It;s too restrictive
+Can we add a salary for a particular reputation value if currently, in the database, there is no pirate with that reputation ? (Let's say for reputation 7 we want 20k salary). There is no pirate, but can we add a row like  "NULL, NULL, 7, NULL, 20K" ? No, because the PK is null. So we cannot do it. To add a new rep, we also need to add a pirate with that rep. It's too restrictive
 
 ### Deletion Anomaly
 What if we fire Sparrow and Barbossa (both with reputation 5 and salary 10k)? Then we lose the salary for reputation 5. We lose the association between them. 
 
 ### How to solve this?
-Normalization rules **divides larger tables into smaller tables and links them** using relationships. The purpose of Normalisation in SQL is to eliminate redundant (repetitive) data and ensure data is stored logically.
+Normalization rules **divides larger tables into smaller tables and links them** using relationships. The purpose of Normalization in SQL is to eliminate redundant (repetitive) data and ensure data is stored logically.
 
 We can eliminate those 3 anomalies by creating 2 tables: One that stores pirates and one that stores the association between reputation and salary:
 
-| PID | Name | Reputation | Ship |
-| -- | -- | -- | -- |
-| p1 | Jack Sparrow | 5 | BP |
-| p2 | Elizabeth Swan | 6 | BP |
-| p3 | Captain Barbossa | 5 | BP |
-| p4 | Will Turner | 6 | FD |
-| p5 | Davy Jones | 4 | FD |
-
-| Reputation | Salary |
-| -- | -- |
-| 5 | 10k |
-| 6 | 15k |
-| 4 | 9k |
+|Table 1|Table 2|
+|--|--|
+|<table> <tr><th>PID</th><th>Name</th><th>Reputation</th><th>Ship</th></tr><tr><td>p1</td><td>Jack Sparrow</td><td>5</td><td>BP</td></tr><tr><td>p2</td><td>Elizabeth Swan</td><td>6</td><td>BP</td></tr><tr><td>p3</td><td>Captain Barbossa</td><td>5</td><td>BP</td></tr><tr><td>p4</td><td>Will Turner</td><td>6</td><td>FD</td></tr><tr><td>p5</td><td>Davy Jones</td><td>4</td><td>FD</td></tr> </table>| <table> <tr><th>Reputation</th><th>Salary</th></tr><tr><td>5</td><td>10k</td></tr><tr><td>6</td><td>15k</td></tr><tr><td>4</td><td>9k</td></tr> </table>|
 
 ### Decomposition
 A relation R is decomposed into relations R1, R2 .. Rm. A **good decomposition** means that we can recover the original relation (in our case R) from the smaller relations. If the decomposition is irreversible, then it's bad. 
 
 ![image](https://user-images.githubusercontent.com/53339016/150659712-1bc5decf-b08c-4c04-a9f5-c03faff08048.png)
+
 See more at Lecture 7 (or the readMe for relational algebra if it exists)
 
  
@@ -56,7 +47,7 @@ Here is a **list of Normal Forms** in SQL:
 * 6NF (Sixth Normal Form)
 
 ## 1NF 
-Definition from lecture: **A relation is in the first normal form if it doesn;t have any repeating attributes.(which is in accordance with the definition of a relation in the relational model)**
+Definition from lecture: **A relation is in the first normal form if it doesn't have any repeating attributes.(which is in accordance with the definition of a relation in the relational model)**
 
 If a relation contains a composite or multi-valued attribute, it violates the first normal form, or **the relation is in first normal form if it does not contain any composite or multi-valued attribute**. A relation is in first normal form if every attribute in that relation is singled valued attribute. 
 
@@ -117,41 +108,59 @@ Before talking about 2NF, let's take a look at "functional dependency"
 * **are wasting space** (we are stating the fact that the salary for the reputation as many times as there are pirates with that reputation)
 * **have update/insertion/deletion anomalies** (see the beginning of this readme).
 
+A functional dependency is denoted by an arrow “→”. The functional dependency of X on Y is represented by X → Y. 
+
 ### Functional dependency properties
 * **Property 1**: If K is a key of a relationship R[A1, A2, ..., An], **then K -> V**, oricare V a subset of {A1, A2, ..., An}
    * ex: {the key} -> {any attribute/set of attributes}
-* **Property 2**: ![image](https://user-images.githubusercontent.com/53339016/150660935-c1b3296e-14c0-4719-b7ca-bd19a964a9b9.png) 
-   * ex: {LastName, FirstName} -> {LastName}, {LastName, FirstName} -> {FirstName}, {LastName, FirstName} -> {LastName, FirstName}
-* **Property 3**: ![image](https://user-images.githubusercontent.com/53339016/150661083-42786986-9978-4ca5-9ceb-52a93d0b1a8c.png)
+* **Property 2(Reflexivity)**: If Y is a subset of X, then X→Y holds by reflexivity rule
+   * ![image](https://user-images.githubusercontent.com/53339016/150660935-c1b3296e-14c0-4719-b7ca-bd19a964a9b9.png) 
+   * ex: {LastName, FirstName} -> {LastName}, 
+   * {LastName, FirstName} -> {FirstName}, 
+   * {LastName, FirstName} -> {LastName, FirstName}
+* **Property 3**: If alpha -> beta(alpha determines beta), then for every gama that it's a superset of alpha (so alpha is a subset of gama), gama->beta(gama determines beta as well)
+   * ![image](https://user-images.githubusercontent.com/53339016/150661083-42786986-9978-4ca5-9ceb-52a93d0b1a8c.png)
+* **Property 4(Transitivity)**: If alpha → beta and beta → gamma are both valid dependencies, then alpha→gamma is also valid by the Transitivity rule.
+   * ![image](https://user-images.githubusercontent.com/53339016/150678172-c8d543d9-3eb3-4807-bad5-7b4a12e2be35.png)
+* **Property 5(Augmentation)**: If X → Y is a valid dependency, then XZ → YZ is also valid by the augmentation rule
+   * ![image](https://user-images.githubusercontent.com/53339016/150678479-0c2b7e11-7b4e-468e-a707-2b59060ba30a.png)
+ 
+### Back to 2NF
+Definition from lecture: **A relation is in the second normal form if it's in the first normal form and every non-prime attribute is fully functionally dependent on the key**
 
 
-The functional dependency among sets of attributes is what causes the previous anomalies; to eliminate these problems, the associations (dependencies) among values should be kept once in a separate relation, therefore, **the initial relation should be decomposed** (via a good decomposition - data should not be lost or added); such a decomposition is performed in the database design phase, when functional dependencies can be identified
+**An attribute is prime** if there is a key K in our relation and the attribute is a proper subset of the key. Ex: if our key consists of K1, K2 then K1 is a prime attribute.
 
-A functional dependency is denoted by an arrow “→”. The functional dependency of X on Y is represented by X → Y. Let’s understand Functional Dependency in DBMS with **this example**:
+Let's say we have a relation R[A1,A2,...,An], where alpha and beta are nonempty sets of attributes in R. Beta is **fully functionally dependent** on alpha if:
+* alpha -> beta
+* if gamma is any subset of alpha, then gamma -> beta does not hold.
+   * Example: we have alpha = [A,B,C] and beta = [D]. Then ABC->D is true, but A->D,B->D,AC->D and so on is not true. 
+* **Basically:  Beta is fully functionally dependent on alpha if it's functionally dependent on alpha but it's not functionally dependent on any proper subset of attributes in alpha.**
 
-Consider the following relation, storing students' learning contracts: \
-CONTRACTS[LastName, FirstName, CNP, CourseId, CourseName] 
-* key: {CNP, CourseId}
-* **functional dependencies**: {CNP} → {LastName, FirstName}, {CourseId} → {CourseName}
+Let's take an example. We have this table: EXAMS[StudentName, Course, Grade, FacultyMember]
 
-To eliminate these dependencies, the relation is decomposed into the
-following three relations:
-* STUDENTS[CNP, LastName, FirstName]
-* COURSES[CourseId, CourseName]
-* LEARNING_CONTRACTS[CNP, CourseId]
+| StudentName | Course | Grade | Faculty Member |
+| -- | -- | -- | -- |
+| Pop Ioana | Computer Networks | 10 | Matei Ana |
+| Vlad Ana | Probabilities and Statistics | 10 | Simion Bogdan |
+| Vlad Ana | Computer Networks | 9.98 | Matei Ana |
+| Dan Andrei | Probabilities and Statistics | 10 | Simion Bogdan |
+| Popescu Alex | Operating Systems | 9.99 | Matei Ana |
 
-Rules:
-* **Be in 1NF**
-* **Have a single column Primary Key that does not functionally depend on any subset of candidate key relation**
+The key is {StudentName, Couse}, and as we can oberse, we have this dependency: {Course}->{Faculty Member}. We need to check if it's in the 2NF:
+* First rule: to be in 1NF. It doesn't have any repeating attributes, so it's okay.
+* Second rule: every non-prime attribute is fully functionally dependent on every key.
+   * The prime attributes are StudentName(S), Course(C), and the non-prime attributes are Grade(G), FacultyMember(F).
+   * We check for the Grade attribute: is it fully functionally dependent on the key? Fully functionally dependent on the key means:
+     * Is grade functionally dependent on StudentName and Course? Yes. SC -> G
+     * Is grade not functionally dependent on any subsets of the key? S->G doesn't hold because a student name can't determine a grade, and C -> G doesn't hold because just a course can't determine a grade. So Grade is not functionally dependent on any subsets of the key.
+     * So, Grade is functionally dependent on the key, and it is not functionally dependent on any proper subset of the key => **Grade is fully functionally dependent on the key**.
+   * We check for the FacultyMember attribute: is it fully functionally dependent on the key? Fully functionally dependent on the key means: 
+     * Is F functionally dependent on StudentName and Course? Yes. SC -> F
+     * Is F not functionally dependent on any subsets of the key? S->F doesn't hold because a student name can't determine a faculty member, but C->F does hold.
+     * So, while FacultyMember is functionally dependent on the key, it is also functionally dependent on a proper subset of the key => **FacultyMember is not fully functionally dependent on the key**.
 
-It is clear that we can’t move forward to make our simple database in 2nd Normalization form unless we partition the table above:
-
-Table1: \
-![](https://www.guru99.com/images/Table1.png) \
-Table2: \
-![](https://www.guru99.com/images/Table2.png)
-
-We have divided our 1NF table into two tables :Table 1 and Table2. Table 1 contains member information. Table 2 contains information on movies rented. We have introduced a new column called Membership_id which is the primary key for table 1. In Table 2, Membership_ID is the Foreign Key
+The second rule isn't respected. We can get rid of this redundancy(due to this functional dependency) by decomposiong our original relation into two relations: RESULTS[**StudentName, Course**, Grade] and COURSES[**Course**, FacultyMember]. From the original relation we'll remove the dependent(FacultyMmember), and the determinant(Course) we'll be the primary key. 
 
 
 ## 3NF (Third Normal Form) Rules
