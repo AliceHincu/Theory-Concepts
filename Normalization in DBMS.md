@@ -1,7 +1,51 @@
 # What is normalization?
-**Normalization** is a database design technique that **reduces data redundancy** and **eliminates undesirable characteristics like Insertion, Update and Deletion Anomalies**. Normalization rules **divides larger tables into smaller tables and links them** using relationships. The purpose of Normalisation in SQL is to eliminate redundant (repetitive) data and ensure data is stored logically.
+**Normalization** is a database design technique that **reduces data redundancy** and **eliminates undesirable characteristics like Insertion, Update and Deletion Anomalies**. 
 
-## Database Normal Forms
+What do Insertion, Update and Deletion Anomalies look like? Let's suppose we have this table:
+| PID | Name | Reputation | Ship | Salary |
+| -- | -- | -- | -- | -- |
+| p1 | Jack Sparrow | 5 | BP | 10k |
+| p2 | Elizabeth Swan | 6 | BP | 15k |
+| p3 | Captain Barbossa | 5 | BP | 10k |
+| p4 | Will Turner | 6 | FD | 15k |
+| p5 | Davy Jones | 4 | FD | 9k |
+
+### Update Anomaly
+Suppose you want to change the salary for a particular reputation. If you only change it in a tuple and not the other ones, we will have an inconsistancy in the database. We have tomake sure all the tuples are modified accordigly. (For repuration 5, you need to change both the first and third row)
+
+### Insertion Anomaly
+Can we add a salary for a particular reputation value if currently, in the database, there is no pirate with that reputation ? (Let's say for reputation 7 we want 20k salary). There is no pirate, but can we add a row like  "NULL, NULL, 7, NULL, 20K" ? No, because the PK is null. So we cannot do it. To add a new rep, we also need to add a pirate with that rep. It;s too restrictive
+
+### Deletion Anomaly
+What if we fire Sparrow and Barbossa (both with reputation 5 and salary 10k)? Then we lose the salary for reputation 5. We lose the association between them. 
+
+### How to solve this?
+Normalization rules **divides larger tables into smaller tables and links them** using relationships. The purpose of Normalisation in SQL is to eliminate redundant (repetitive) data and ensure data is stored logically.
+
+We can eliminate those 3 anomalies by creating 2 tables: One that stores pirates and one that stores the association between reputation and salary:
+
+| PID | Name | Reputation | Ship |
+| -- | -- | -- | -- |
+| p1 | Jack Sparrow | 5 | BP |
+| p2 | Elizabeth Swan | 6 | BP |
+| p3 | Captain Barbossa | 5 | BP |
+| p4 | Will Turner | 6 | FD |
+| p5 | Davy Jones | 4 | FD |
+
+| Reputation | Salary |
+| -- | -- |
+| 5 | 10k |
+| 6 | 15k |
+| 4 | 9k |
+
+### Decomposition
+A relation R is decomposed into relations R1, R2 .. Rm. A **good decomposition** means that we can recover the original relation (in our case R) from the smaller relations. If the decomposition is irreversible, then it's bad. 
+
+![image](https://user-images.githubusercontent.com/53339016/150659712-1bc5decf-b08c-4c04-a9f5-c03faff08048.png)
+See more at Lecture 7 (or the readMe for relational algebra if it exists)
+
+ 
+# Database Normal Forms
 Here is a **list of Normal Forms** in SQL:
 * 1NF (First Normal Form)
 * 2NF (Second Normal Form)
