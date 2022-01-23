@@ -1,3 +1,11 @@
+# Content
+* [1NF](#1nf)
+* [2NF](#2nf)
+* [3NF](#3nf)
+* [BCNF](#bcnf)
+* [4NF](#4nf)
+* [5NF](#5nf)
+
 # What is normalization?
 **Normalization** is a database design technique that **reduces data redundancy** and **eliminates undesirable characteristics like Insertion, Update and Deletion Anomalies**. 
 
@@ -35,34 +43,7 @@ A relation R is decomposed into relations R1, R2 .. Rm. A **good decomposition**
 
 See more at Lecture 7 (or the readMe for relational algebra if it exists)
 
-# Functional dependency
-
-![image](https://user-images.githubusercontent.com/53339016/150660698-4cf1fc2d-d80c-4b8c-b269-0e8b39a4112f.png)
-
-(P.S: {the determinant} -> {the dependent})
-
-**{Reputation} -> {Salary} It's a functional dependence**. (Reputation determines salary). 
-
-**Functional Dependency** (FD) is a constraint that determines the relation of one attribute to another attribute in a Database Management System (DBMS). Functional Dependency helps to maintain  the quality of data in the database. It plays a vital role to find the difference between good and bad database design. If the relation contains such a functional dependency, the following problems can arise (some of them need to be solved through additional programming efforts - executing a SQL command is not enough):
-* **are wasting space** (we are stating the fact that the salary for the reputation as many times as there are pirates with that reputation)
-* **have update/insertion/deletion anomalies** (see the beginning of this readme).
-
-A functional dependency is denoted by an arrow “→”. The functional dependency of X on Y is represented by X → Y. 
-
-### Functional dependency properties
-* **Property 1**: If K is a key of a relationship R[A1, A2, ..., An], **then K -> V**, oricare V a subset of {A1, A2, ..., An}
-   * ex: {the key} -> {any attribute/set of attributes}
-* **Property 2(Reflexivity)**: If Y is a subset of X, then X→Y holds by reflexivity rule
-   * ![image](https://user-images.githubusercontent.com/53339016/150660935-c1b3296e-14c0-4719-b7ca-bd19a964a9b9.png) 
-   * ex: {LastName, FirstName} -> {LastName}, 
-   * {LastName, FirstName} -> {FirstName}, 
-   * {LastName, FirstName} -> {LastName, FirstName}
-* **Property 3**: If alpha -> beta(alpha determines beta), then for every gama that it's a superset of alpha (so alpha is a subset of gama), gama->beta(gama determines beta as well)
-   * ![image](https://user-images.githubusercontent.com/53339016/150661083-42786986-9978-4ca5-9ceb-52a93d0b1a8c.png)
-* **Property 4(Transitivity)**: If alpha → beta and beta → gamma are both valid dependencies, then alpha→gamma is also valid by the Transitivity rule.
-   * ![image](https://user-images.githubusercontent.com/53339016/150678172-c8d543d9-3eb3-4807-bad5-7b4a12e2be35.png)
-* **Property 5(Augmentation)**: If X → Y is a valid dependency, then XZ → YZ is also valid by the augmentation rule
-   * ![image](https://user-images.githubusercontent.com/53339016/150678479-0c2b7e11-7b4e-468e-a707-2b59060ba30a.png)
+Also read about functional dependecy before continuing [here](https://github.com/AliceHincu/Theory-Concepts/blob/main/Functional%20dependency.md)
   
 # Database Normal Forms
 Here is a **list of Normal Forms** in SQL:
@@ -226,10 +207,61 @@ This relation is in 3NF, but we still have redundancy.  We decompose it like thi
 Now there are not any dependencies in which the left side is not a key. Reformulation: **in the left side, we only need to have keys**. Before, we had the key{Room, Date, Hour} and the dependency: FD{FacultyMember, Date}->{Room}, and FacultyMember was not a key. 
  
 ## 4NF 
-If no database table instance contains two or more, independent and multivalued data describing the relevant entity, then it is in 4th Normal Form.
+Definition from lecture: A relation is in 4NF if and only if for every MVD that holds over our relation, one of the following statements is true:
+* the MVD is trivial
+* the left side of the MVD is a super key.
+
+Basically: If no database table instance contains two or more, independent and multivalued data describing the relevant entity, then it is in 4th Normal Form.
+
+Rules for 4th Normal Form:
+* It should be in the Boyce-Codd Normal Form.
+* And, the table should not have any Multi-valued Dependency.
+
+### What is Multi-valued Dependency?
+A table is said to have multi-valued dependency, if the following conditions are true:
+* For a dependency A → B, if for a single value of A, multiple value of B exists, then the table may have multi-valued dependency.
+* Also, a table should have at-least 3 columns for it to have a multi-valued dependency.
+* And, for a relation R(A,B,C), if there is a multi-valued dependency between, A and B, then B and C should be independent of each other.
+
+If all these conditions are true for any relation(table), it is said to have multi-valued dependency.
+
+### Time for an Example
+Below we have a college enrolment table with columns s_id, course and hobby.
+
+| s_id | course | hobby |
+| 1	| Science |	Cricket |
+| 1	| Maths |	Hockey |
+| 2	| C# | Cricket |
+| 2	| Php | Hockey |
+
+As you can see in the table above, student with s_id 1 has opted for two courses, Science and Maths, and has two hobbies, Cricket and Hockey.
+
+You must be thinking what problem this can lead to, right?
+
+Well the two records for student with s_id 1, will give rise to two more records, as shown below, because for one student, two hobbies exists, hence along with both the courses, these hobbies should be specified.
+
+| s_id | course | hobby |
+| -- | -- | -- |
+| 1	| Science | Cricket |
+| 1	| Maths	| Hockey |
+| 1	| Science	| Hockey |
+| 1	| Maths	| Cricket |
+
+And, in the table above, there is no relationship between the columns course and hobby. They are independent of each other. So there is multi-value dependency, which leads to un-necessary repetition of data and other anomalies as well.
+
+How to satisfy 4th Normal Form?
+To make the above relation satify the 4th normal form, we can decompose the table into 2 tables.
+
+|CourseOpted Table|Hobbies Table|
+|--|--|
+|<table> <tr><th>s_id</th><th>course</th></tr><tr><td>1</td><td>Science</td></tr><tr><td>1</td><td>Maths</td></tr><tr><td>2</td><td>C#</td></tr><tr><td>2</td><td>PHP</td></tr> </table>| <table> <tr><th>s_id</th><th>hobby</th></tr><tr><td>1</td><td>Cricket</td></tr><tr><td>1</td><td>Hockey</td></tr><tr><td>2</td><td>Cricket</td></tr><tr><td>2</td><td>Hockey</td></tr> </table>|
 
 ## 5NF 
 A table is in 5th Normal Form only if it is in 4NF and it cannot be decomposed into any number of smaller tables without loss of data.
+
+If a table can be recreated by joining multiple tables and each of this table have a subset of the attributes of the table, then the table is in **Join Dependency**. It is a generalization of Multivalued Dependency
+
+That would mean that if by doing a join relation on some relations and the result is equal to our original relation, then it;s not in 5NF.
 
 ## 6NF (Sixth Normal Form) Proposed
 6th Normal Form is not standardized, yet however, it is being discussed by database experts for some time. Hopefully, we would have a clear & standardized definition for 6th Normal Form in the near future…
