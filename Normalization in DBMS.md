@@ -35,7 +35,35 @@ A relation R is decomposed into relations R1, R2 .. Rm. A **good decomposition**
 
 See more at Lecture 7 (or the readMe for relational algebra if it exists)
 
- 
+# Functional dependency
+
+![image](https://user-images.githubusercontent.com/53339016/150660698-4cf1fc2d-d80c-4b8c-b269-0e8b39a4112f.png)
+
+(P.S: {the determinant} -> {the dependent})
+
+**{Reputation} -> {Salary} It's a functional dependence**. (Reputation determines salary). 
+
+**Functional Dependency** (FD) is a constraint that determines the relation of one attribute to another attribute in a Database Management System (DBMS). Functional Dependency helps to maintain  the quality of data in the database. It plays a vital role to find the difference between good and bad database design. If the relation contains such a functional dependency, the following problems can arise (some of them need to be solved through additional programming efforts - executing a SQL command is not enough):
+* **are wasting space** (we are stating the fact that the salary for the reputation as many times as there are pirates with that reputation)
+* **have update/insertion/deletion anomalies** (see the beginning of this readme).
+
+A functional dependency is denoted by an arrow “→”. The functional dependency of X on Y is represented by X → Y. 
+
+### Functional dependency properties
+* **Property 1**: If K is a key of a relationship R[A1, A2, ..., An], **then K -> V**, oricare V a subset of {A1, A2, ..., An}
+   * ex: {the key} -> {any attribute/set of attributes}
+* **Property 2(Reflexivity)**: If Y is a subset of X, then X→Y holds by reflexivity rule
+   * ![image](https://user-images.githubusercontent.com/53339016/150660935-c1b3296e-14c0-4719-b7ca-bd19a964a9b9.png) 
+   * ex: {LastName, FirstName} -> {LastName}, 
+   * {LastName, FirstName} -> {FirstName}, 
+   * {LastName, FirstName} -> {LastName, FirstName}
+* **Property 3**: If alpha -> beta(alpha determines beta), then for every gama that it's a superset of alpha (so alpha is a subset of gama), gama->beta(gama determines beta as well)
+   * ![image](https://user-images.githubusercontent.com/53339016/150661083-42786986-9978-4ca5-9ceb-52a93d0b1a8c.png)
+* **Property 4(Transitivity)**: If alpha → beta and beta → gamma are both valid dependencies, then alpha→gamma is also valid by the Transitivity rule.
+   * ![image](https://user-images.githubusercontent.com/53339016/150678172-c8d543d9-3eb3-4807-bad5-7b4a12e2be35.png)
+* **Property 5(Augmentation)**: If X → Y is a valid dependency, then XZ → YZ is also valid by the augmentation rule
+   * ![image](https://user-images.githubusercontent.com/53339016/150678479-0c2b7e11-7b4e-468e-a707-2b59060ba30a.png)
+  
 # Database Normal Forms
 Here is a **list of Normal Forms** in SQL:
 * 1NF (First Normal Form)
@@ -94,38 +122,8 @@ We have a composite repeating attributes, so we are gonna decompose the relation
 ![image](https://user-images.githubusercontent.com/53339016/150660484-c0e1d934-1a0e-4493-9194-73a77a0eaebe.png)
 
 ## 2NF
-Before talking about 2NF, let's take a look at "functional dependency"
+Before talking about 2NF, take a look at "functional dependency".
 
-### Functional dependency
-
-![image](https://user-images.githubusercontent.com/53339016/150660698-4cf1fc2d-d80c-4b8c-b269-0e8b39a4112f.png)
-
-(P.S: {the determinant} -> {the dependent})
-
-**{Reputation} -> {Salary} It's a functional dependence**. (Reputation determines salary). 
-
-**Functional Dependency** (FD) is a constraint that determines the relation of one attribute to another attribute in a Database Management System (DBMS). Functional Dependency helps to maintain  the quality of data in the database. It plays a vital role to find the difference between good and bad database design. If the relation contains such a functional dependency, the following problems can arise (some of them need to be solved through additional programming efforts - executing a SQL command is not enough):
-* **are wasting space** (we are stating the fact that the salary for the reputation as many times as there are pirates with that reputation)
-* **have update/insertion/deletion anomalies** (see the beginning of this readme).
-
-A functional dependency is denoted by an arrow “→”. The functional dependency of X on Y is represented by X → Y. 
-
-### Functional dependency properties
-* **Property 1**: If K is a key of a relationship R[A1, A2, ..., An], **then K -> V**, oricare V a subset of {A1, A2, ..., An}
-   * ex: {the key} -> {any attribute/set of attributes}
-* **Property 2(Reflexivity)**: If Y is a subset of X, then X→Y holds by reflexivity rule
-   * ![image](https://user-images.githubusercontent.com/53339016/150660935-c1b3296e-14c0-4719-b7ca-bd19a964a9b9.png) 
-   * ex: {LastName, FirstName} -> {LastName}, 
-   * {LastName, FirstName} -> {FirstName}, 
-   * {LastName, FirstName} -> {LastName, FirstName}
-* **Property 3**: If alpha -> beta(alpha determines beta), then for every gama that it's a superset of alpha (so alpha is a subset of gama), gama->beta(gama determines beta as well)
-   * ![image](https://user-images.githubusercontent.com/53339016/150661083-42786986-9978-4ca5-9ceb-52a93d0b1a8c.png)
-* **Property 4(Transitivity)**: If alpha → beta and beta → gamma are both valid dependencies, then alpha→gamma is also valid by the Transitivity rule.
-   * ![image](https://user-images.githubusercontent.com/53339016/150678172-c8d543d9-3eb3-4807-bad5-7b4a12e2be35.png)
-* **Property 5(Augmentation)**: If X → Y is a valid dependency, then XZ → YZ is also valid by the augmentation rule
-   * ![image](https://user-images.githubusercontent.com/53339016/150678479-0c2b7e11-7b4e-468e-a707-2b59060ba30a.png)
- 
-### Back to 2NF
 Definition from lecture: **A relation is in the second normal form if it's in the first normal form and every non-prime attribute is fully functionally dependent on the key**
 
 
@@ -177,25 +175,53 @@ Becomes these tables:
 |<table> <tr><th>StudentName</th><th>Course</th><th>Grade</th></tr><tr><td>Pop Ioana</td><td>Computer Networks</td><td>10</td></tr><tr><td>Vlad Ana</td><td>Probabilities and Statistics</td><td>10</td></tr><tr><td>Vlad Ana</td><td>Computer Networks</td><td>9.98</td></tr><tr><td>Dan Andrei</td><td>Probabilities and Statistics</td><td>10</td></tr><tr><td>Popescu Alex</td><td>Operating Systems</td><td>9.99</td></tr> </table>| <table> <tr><th>Course</th><th>FacultyMember</th></tr><tr><td>Computer Networks</td><td>Matei Ana</td></tr><tr><td>robabilities and Statistics</td><td>Simion Bogdan</td></tr><tr><td>Operating Systems</td><td>Matei Ana</td></tr> </table>|
 
 
-## 3NF (Third Normal Form) Rules
+## 3NF
+Rules:
 * **Be in 2NF**
-* **Has no transitive functional dependencies**
+* **no non-prime attribute is transitevely dependent on any key**
 
-A **transitive functional dependency** is when changing a non-key column, might cause any of the other non-key columns to change. Consider the table 1. Changing the non-key column Full Name may change Salutation.
+A **transitive functional dependency** is when changing a non-key column, might cause any of the other non-key columns to change(in the example below: changing either salary or reputation causes changes in the other column). 
 
-![](https://www.guru99.com/images/transitive_functional_dependencies.png)
+From lecture: **attribute Z is transitively dependent on attribute X if it exists a Y sush that X->Y, Y->Z, Y->X does not hold.**
 
-We need to divide again our tables and create a new table which stores Salutations. There are no transitive functional dependencies, and hence our table is in 3NF. In Table 3 Salutation ID is primary key, and in Table 1 Salutation ID is foreign to primary key in Table 3.
+Example: 
 
-![](https://www.guru99.com/images/2NFTable1.png)
-![](https://www.guru99.com/images/2NFTable2.png)
-![](https://www.guru99.com/images/2NFTable3.png)
+| PID | Name | Reputation | Salary |
+| -- | -- | -- | -- |
+| p1 | Jack Sparrow | 5 | 10k |
+| p2 | Elizabeth Swan | 6 | 15k |
+| p3 | Captain Barbossa | 5 | 10k |
+| p4 | Will Turner | 6 | 15k |
+| p5 | Davy Jones | 4 | 9k |
 
-## BCNF (Boyce-Codd Normal Form)
+This table is in 2NF. We also see that {Reputation} -> {Salary}. We still have redundancy because of this dependency. Salary is transitively dependent on reputation.
+* we said that: attribute Z is transitively dependent on attribute X if it exists a Y such that X->Y, Y->Z, Y->X does not hold.
+* for this example, PID determines Reputation (because it's a key). Reputation determines Salary(which is not a subset of PID or Reputation). Reputation does not determine PID. **By our definition, Salary is transitively dependent on PID**, so the second rule is broken.
+
+A decomposition can be:
+|Table 1|Table 2|
+|--|--|
+|<table> <tr><th>PID</th><th>Name</th><th>Reputation</th><th>Ship</th></tr><tr><td>p1</td><td>Jack Sparrow</td><td>5</td><td>BP</td></tr><tr><td>p2</td><td>Elizabeth Swan</td><td>6</td><td>BP</td></tr><tr><td>p3</td><td>Captain Barbossa</td><td>5</td><td>BP</td></tr><tr><td>p4</td><td>Will Turner</td><td>6</td><td>FD</td></tr><tr><td>p5</td><td>Davy Jones</td><td>4</td><td>FD</td></tr> </table>| <table> <tr><th>Reputation</th><th>Salary</th></tr><tr><td>5</td><td>10k</td></tr><tr><td>6</td><td>15k</td></tr><tr><td>4</td><td>9k</td></tr> </table>|
+
+
+## BCNF
+BCNF = (Boyce-Codd Normal Form)
+
+Definition from lecture: **A relation is in BCNF if the determinant for each and every dependency is a candidate key.**
+
 Even when a database is in 3rd Normal Form, still there would be anomalies resulted if it has more than one Candidate Key. Sometimes is BCNF is also referred as 3.5 Normal Form.
 
-**CANDIDATE KEY** in SQL is a set of attributes that uniquely identify tuples in a table. Candidate Key is a super key with no repeated attributes. The Primary key should be selected from the candidate keys. Every table must have at least a single candidate key. A table can have multiple candidate keys but only a single primary key.
+Example: For table EX_SCHEDULE(Date, Hour, FacultyMember, Room, Group) we can have these keys:
+* key{Date, Group}: a group of students has at most one exam per date.
+* key{FacultyMember, Date, Hour}: on a certain date and time, a faculty member has at most one exam
+* key{Room, Date, Hour}:  on a certain date and time, in a certain room, we have at most one exam
+* **and this functional dependency: FD{FacultyMember, Date}->{Room}**
 
+This relation is in 3NF, but we still have redundancy.  We decompose it like this: 
+* EX_SCHEDULE[Date, Hour, FacultyMember, Group] (we took out the dependent)
+   * we still have the keys {Date, Group} and {FacultyMember, Date, Hour}, but {Room, Date, Hour} is lost.
+* ROOM_ALLOCATION[FacultyMember, Date, Room]
+ 
 ## 4NF 
 If no database table instance contains two or more, independent and multivalued data describing the relevant entity, then it is in 4th Normal Form.
 
