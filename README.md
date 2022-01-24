@@ -48,5 +48,6 @@ I have created this repository for myself, but you are free to read anything fro
       * [Logical operators, Join Expressions, Aggregation operators, Grouping data](https://github.com/AliceHincu/Theory-Concepts/blob/main/Logical%20operators,%20Join%20Expressions,%20Aggregation%20operators,%20Grouping%20data.md)
     * [Functional dependency](https://github.com/AliceHincu/Theory-Concepts/blob/main/Functional%20dependency.md) 
     * [Normalization in DBMS](https://github.com/AliceHincu/Theory-Concepts/blob/main/Normalization%20in%20DBMS.md) - 1NF, 2NF ....
+    * [Relational algebra](https://github.com/AliceHincu/Theory-Concepts/blob/main/Relational%20Algebra.md)
   * Lisp
     * [Lisp Functions and Predicates](https://github.com/AliceHincu/Theory-Concepts/blob/main/Lisp%20Functions%20and%20Predicates.md) 
