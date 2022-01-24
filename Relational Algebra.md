@@ -325,4 +325,71 @@ Let 𝑅1[𝛼], 𝑅2[𝛽]
 *  𝑅1 ÷ 𝑅2 = 𝜋_{𝛼−𝛽}(𝑅1) − 𝜋_{𝛼−𝛽}( (𝜋_{𝛼−𝛽}(𝑅1)) × 𝑅2 − 𝑅1 )
 * ![image](https://user-images.githubusercontent.com/53339016/150703544-209e0566-52c1-4d22-b5bb-7056ea1a1d21.png)
 
+## Additional statements
+* **assignment**:  R[list] ≔ expression
+   * the expression's result (a relation) is assigned to a variable (R[list]), specifying the name of the relation [and the names of its columns]
+* **eliminating duplicates from a relation**: δ(R)
+* **sorting records in a relation**: S_{list}(R)
+* **grouping**: γ_{{list1} group by {list2}} (R)
+   * R's records are grouped by the columns in list2
+   * list1 (that can contain aggregate functions) is evaluated for each group of records
 
+# Problems
+Suppose we have this database:
+* students [id, name, sgroup, gpa, dob], where sgroup is a FK(groups)
+* groups [id, year, program]
+* schedule [day, starthour, endhour, activtype, room, sgroup, facultym_id], where sgroup is a FK(groups) and facultym_id is a FK(faculty_members)
+* faculty_members [id, name]
+
+## 1
+The names of students in a given group:
+
+![image](https://user-images.githubusercontent.com/53339016/150704529-4c30d0de-f6eb-4ff1-aea1-ccedcd9c2a23.png)
+
+```sql
+SELECT name
+FROM students
+WHERE sgroup='222'
+```
+
+## 2
+The students in a given program (alphabetical list, by groups):
+
+![image](https://user-images.githubusercontent.com/53339016/150704633-d0b1de98-8359-4014-a475-343a62320e19.png)
+
+```sql
+SELECT *
+FROM students
+WHERE sgroup IN
+    (SELECT id -- here is G
+     FROM groups
+     WHERE program='IG')
+ORDER BY sgroup, name
+```
+
+## 3
+The number of students in every group of a given program:
+
+![image](https://user-images.githubusercontent.com/53339016/150704761-be0b7049-307a-4a1a-b308-17a67e5840d7.png)
+
+```sql
+SELECT sgroup, COUNT(*) -- The number of students in every group of a given program
+FROM (SELECT * -- sigma_{group is in....}(students) ... get the students in every group of a given program
+      FROM students
+      WHERE sgroup IN 
+          (SELECT id -- sigma_{program = 'IG'}(groups) ... get the groups of a given program
+           FROM groups
+           WHERE program='IG')
+     ) t  -- alias because we refer to this result set later ((we have from)
+GROUP BY sgroup
+```
+
+## 4
+A student's schedule (the student is given by name):
+
+![image](https://user-images.githubusercontent.com/53339016/150705069-51528fd6-69e0-4013-8eb5-d7dcca9462e1.png)
+
+## 5
+The number of hours per week for every group: 
+
+![image](https://user-images.githubusercontent.com/53339016/150705244-0018281c-0534-418b-9775-784e19d6999b.png)
