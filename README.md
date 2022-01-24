@@ -49,5 +49,7 @@ I have created this repository for myself, but you are free to read anything fro
     * [Functional dependency](https://github.com/AliceHincu/Theory-Concepts/blob/main/Functional%20dependency.md) 
     * [Normalization in DBMS](https://github.com/AliceHincu/Theory-Concepts/blob/main/Normalization%20in%20DBMS.md) - 1NF, 2NF ....
     * [Relational algebra](https://github.com/AliceHincu/Theory-Concepts/blob/main/Relational%20Algebra.md)
+    * [Memory Hierarchy DBMS](https://github.com/AliceHincu/Theory-Concepts/blob/main/Memory%20Hierarchy%20DBMS.md)
+    * [Written](https://github.com/AliceHincu/Theory-Concepts/blob/main/Theoretical%20part.md)
   * Lisp
     * [Lisp Functions and Predicates](https://github.com/AliceHincu/Theory-Concepts/blob/main/Lisp%20Functions%20and%20Predicates.md) 
