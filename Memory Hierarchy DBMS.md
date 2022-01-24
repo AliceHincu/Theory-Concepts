@@ -78,3 +78,16 @@ Characteristics of Magnetic Disks:
 * number of rotations / min
 * data transfer rate (MB/s)
 * ...
+
+### Moore's law
+Gordon Moore: **"the improvement of integrated circuits is following an exponential curve that doubles every 18 months"**
+
+Parameters that follow Moore’s law:
+* speed of processors (number of instructions executed / sec)
+* no. of bits / chip
+* capacity of largest disks
+
+Parameters that do not follow Moore’s law
+* speed of accessing data in main memory
+* disk rotation speed
+=> "latency" keeps increasing. Time to move data between memory hierarchy levels appears to take longer compared with computation time
