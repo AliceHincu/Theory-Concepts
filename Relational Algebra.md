@@ -260,3 +260,69 @@ We'll have:
 
 ## Independent subset of operators
 For the previously described query language, with operators: {𝜎, 𝜋, ×, ∪, −, ∩, ⨂, ∗, ⋉, ⋊, ⋈, ⊳, ⊲, ÷} **an independent set of operators is {𝜎, 𝜋, ×, ∪, −}**
+
+**How to obtain the others?**
+
+### Intersection (∩)
+𝑅1 ∩ 𝑅2 = 𝑅1 − (𝑅1−𝑅2)
+
+R1-R2 represents this:
+![image](https://user-images.githubusercontent.com/53339016/150702632-1fbaafd1-3665-468e-8f52-a0f034ee1968.png)
+
+𝑅1 − partea hasurata means the middle part.
+
+### Codition join (⨂)
+𝑅1 ⨂_{C} 𝑅2 = 𝜎_{𝐶}(𝑅1 × 𝑅2)
+
+Cross product means every tuple 𝑟1 in 𝑅1 is concatenated with every tuple 𝑟2 in 𝑅2. So (𝑅1 × 𝑅2) gives us every possibility. By aplying a select(sigma), we only take records in 𝑅 that satisfy condition C. So we get a condition join
+
+### Natural join( * )
+Natural join is like the cross prudct but attributes with the same name in 𝑅1 and 𝑅2 appear once in the result. Let 𝑅1[𝛼], 𝑅2[𝛽], 𝛼 ∩ 𝛽 = 𝐴1, 𝐴2,... , 𝐴𝑚 ; then:
+   * 𝑅1 ∗ 𝑅2 = 𝜋_{𝛼⋃𝛽(𝑅1 ⨂_{𝑅1.𝐴1=𝑅2.𝐴1 𝐴𝑁𝐷 … 𝐴𝑁𝐷 𝑅1.𝐴𝑚=𝑅2.𝐴𝑚} 𝑅2)}
+   * 𝑅1 ⨂_{𝑅1.𝐴1=𝑅2.𝐴1 𝐴𝑁𝐷 … 𝐴𝑁𝐷 𝑅1.𝐴𝑚=𝑅2.𝐴𝑚} 𝑅2) means the union of the attributes which have common values of the two relations 
+   * by 𝛼⋃𝛽 we eliminate duplicates.
+
+### Left join( ⋉ )
+Let 𝑅1[𝛼], 𝑅2[𝛽], 𝑅3 𝛽 = {(𝑛𝑢𝑙𝑙, … , 𝑛𝑢𝑙𝑙)}, 𝑅4 𝛼 = {(𝑛𝑢𝑙𝑙, … , 𝑛𝑢𝑙𝑙)}
+* 𝑅1 ⋉_{C} 𝑅2 = (𝑅1 ⨂_{c} 𝑅2) ∪ [𝑅1 − 𝜋_α(𝑅1 ⨂_{c} 𝑅2)] × 𝑅3
+* (𝑅1 ⨂_{c} 𝑅2) computes the inner join
+* now we need every row on the left that doesn't match the right one, with the null values for the columns that come with the right table
+* we take the condition join (𝑅1 ⨂_{c} 𝑅2), we project it on alpha(the schema of alpha) and we get all the records in R1 that were used in the condition join. But we need the opposite. So we subtract it from R1, so we obtain [𝑅1 − 𝜋_α(𝑅1 ⨂_{c} 𝑅2)]. Then we compute the cross product with R3
+
+### Right join ( ⋊ )
+Let 𝑅1[𝛼], 𝑅2[𝛽], 𝑅3 𝛽 = {(𝑛𝑢𝑙𝑙, … , 𝑛𝑢𝑙𝑙)}, 𝑅4 𝛼 = {(𝑛𝑢𝑙𝑙, … , 𝑛𝑢𝑙𝑙)}
+* 𝑅1 ⋊_{C} 𝑅2 = (𝑅1 ⨂_{c} 𝑅2) ∪ 𝑅4 × (𝑅2 − 𝜋_{β}(𝑅1 ⨂_{c} 𝑅2))
+
+### Full join( ⋈ )
+Let 𝑅1[𝛼], 𝑅2[𝛽]
+𝑅1 ⋈C 𝑅2 = (𝑅1 ⋉_{C} 𝑅2) ∪ (𝑅1 ⋊_{C} 𝑅2)
+
+### Left semi join
+Left semi join means the tuples in 𝑅1 that are used in the natural join 𝑅1 ∗ 𝑅2.
+
+Let 𝑅1[𝛼], 𝑅2[𝛽]
+* 𝑅1 ⊳ 𝑅2 = 𝜋_𝛼(𝑅1 ∗ 𝑅2)
+* We select only the attributes (alpha) corresponding to R1
+
+### Right semi join
+Right semi join means the tuples in 𝑅2 that are used in the natural join 𝑅1 ∗ 𝑅2.
+
+Let 𝑅1[𝛼], 𝑅2[𝛽]
+* 𝑅1 ⊳ 𝑅2 = 𝜋_𝛽(𝑅1 ∗ 𝑅2)
+* We select only the attributes (beta) corresponding to R2
+
+### Division
+![image](https://user-images.githubusercontent.com/53339016/150703477-6628fc4b-bf78-46c7-abdf-b57f681fc1d8.png)
+
+𝑅1 ÷ 𝑅2 = 𝜋_{𝛼−𝛽}(𝑅1) − 𝜋_{𝛼−𝛽}( (𝜋_{𝛼−𝛽}(𝑅1)) × 𝑅2 − 𝑅1 )
+* 𝜋_{𝛼−𝛽}(𝑅1) means we take the attributes from the first table that are not in the second table.
+* (𝜋_{𝛼−𝛽}(𝑅1)) × 𝑅2. Cross product means every tuple 𝑟1 in 𝑅1 is concatenated with every tuple 𝑟2 in 𝑅2. We take the attributes from the first table that are not in the second table and we concatenate them with R2
+* ![image](https://user-images.githubusercontent.com/53339016/150703466-94ff9742-0193-4c27-982f-724375713a34.png)
+* From (𝜋_{𝛼−𝛽}(𝑅1)) × 𝑅2 we subtract R1 (the original relation)
+* ![image](https://user-images.githubusercontent.com/53339016/150703506-3d42013a-628e-48a7-a7ee-7f8447a2625e.png)
+*  𝜋_{𝛼−𝛽}( (𝜋_{𝛼−𝛽}(𝑅1)) × 𝑅2 − 𝑅1 )
+*  ![image](https://user-images.githubusercontent.com/53339016/150703521-2b364940-c637-405d-a4da-e37528b20c44.png)
+*  𝑅1 ÷ 𝑅2 = 𝜋_{𝛼−𝛽}(𝑅1) − 𝜋_{𝛼−𝛽}( (𝜋_{𝛼−𝛽}(𝑅1)) × 𝑅2 − 𝑅1 )
+* ![image](https://user-images.githubusercontent.com/53339016/150703544-209e0566-52c1-4d22-b5bb-7056ea1a1d21.png)
+
+
