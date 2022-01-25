@@ -219,7 +219,8 @@ After left semi join we will get the table:
 | PID | Name | Ruthlessness | Ship |
 | -- | -- | -- | -- |
 | p1 | Jack Sparrow | 1 | BP |
-| p2 | Elixabeth Swann | 2 | BP |
+| p2 | Elizabeth Swann | 2 | BP |
+| p3 | Hector Barbossa | 3 | BP |
 
 ## Right semi join
 Notation: 𝑅1 ⊲ 𝑅2
