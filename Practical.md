@@ -122,3 +122,41 @@ SELECT CG.Name, G.Name
 FROM ClusterOfG CG INNER JOIN Galaxy G ON G.ClusterId = CG.Id
 WHERE CG.Type = 2
 ```
+
+# FUNCTION, VIEW, PROCEDURE, TRIGGER
+```sql
+create or alter function fun1 (@sum int)
+returns table
+as
+return 
+	  select c.CardNumber, c.Cvv
+	  from Cards c
+	  inner join Transactions t on c.CardNumber=t.CardNumber 
+	  GROUP BY C.cardnumber, C.CVV 
+	  HAVING SUM(t.Balance) > @sum
+go
+```
+
+```sql
+create or alter procedure pr1 (@cardnumber char(19))
+as
+begin
+	  delete 	
+	  from Transactions
+	  where Transactions.CardNumber Like @cardnumber
+end
+go
+```
+
+```sql
+create or alter view view1 
+as
+	select sq.CardNumber
+	from (    
+		SELECT distinct t.CardNumber, t.AtmId
+		FROM Transactions t
+	) as sq
+	GROUP BY sq.CardNumber
+	HAVING COUNT(*) = (SELECT COUNT(*) FROM ATM)
+GO
+```
