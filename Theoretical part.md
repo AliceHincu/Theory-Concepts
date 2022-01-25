@@ -1,5 +1,8 @@
 * [Lecture 12 exercises](#from-l12)
 * [Written 1 exercises](#w1)
+* [Written 2 exercises](#w2)
+
+
 # From L12
 ### 1
 In a SELECT query: <br>
@@ -506,3 +509,178 @@ E = (σID = B1 AND A2='exam' AND B2='DB'(A×B)) * (σC1=3 (C×D))
 Optimize E and draw the evaluation tree for the optimized version of the expression.
 
 **EXPLANATION**: First, we apply selections on a single table. Then, we apply projections to reduce the nr of columns on all the condition cols (but here it's not the case)
+
+# W2
+1. Rows in a relation in the relational model:
+a. are not ordered <br> 
+b. are not distinct <br> 
+c. are ordered <br>
+d. are distinct <br>
+e. none of the above answers is correct.
+
+**ANSWER**: a, d. 
+
+**EXPLANATION**: See lecture 12.
+
+2-6. Consider the relational schema R[RID, M, N, P, Q, O] with the primary key {RID}, and NOT NULL constraints on columns M and N. R has no other restrictions. Answer questions 2-6 using the legal instance below:
+
+| RID | M | N | P | Q | O |
+| -- | -- | -- | -- | -- | -- |
+| 10 | Allons | Le jour | 20 | 1 | 10 |
+| 1 | enfants | de | 21 | 1 | 5 |
+| 2 | de gloire | 22 | 1 | null |
+| 11 | la est | 23 | 1 | null |
+| 3 | Patrie, | arrivé! | 24 | 1 | 2 |
+
+2. How many records does the query below return when executed on a legal instance of R?
+```sql
+SELECT *
+FROM R
+WHERE M IS NULL
+```
+a. 1 <br>
+b. 2 <br>
+c. 0 <br>
+d. 3 <br>
+e. none of the above answers is correct.
+
+**ANSWER**: c
+
+**EXPLANATION**: M is null nowhere
+
+3. After executing the statement:
+```sql 
+DROP TABLE R
+```
+a. both the schema information and the tuples of the table are still stored in the database <br>
+b. only the tuples are removed from the table, the schema information is still stored in the database <br>
+c. both the schema information and the tuples of the table are removed from the database <br>
+d. only the schema information is removed, the tuples are still stored in the table <br>
+e. none of the above answers is correct.
+
+**ANSWER**: c
+
+4. How many records does the query below return?
+```sql
+SELECT M, COUNT(DISTINCT P)
+FROM R
+```
+a. 1 <br>
+b. 5 <br>
+c. 4 <br>
+d. 2 <br>
+e. none of the above answers is correct.
+
+**ANSWER**: e
+
+**EXPLANATION**: "Column 'R.M' is invalid in the select list because it is not contained in either an aggregate function or the GROUP BY clause."
+
+5. How many records does the query below return?
+```sql
+SELECT *
+FROM R
+WHERE P > ALL (SELECT P FROM R)
+```
+
+a. 0 <br>
+b. 5 <br>
+c. 1 <br>
+d. 4 <br>
+e. none of the above answers is correct.
+
+**ANSWER**: a
+
+**EXPLANATION**: If you do >ALL(SELECT...) you take the max value from the select. In this case, max value of P. In the Where clause, you search for a P > P_max, which will always return false.
+
+6. How many records does the query below return?
+```sql
+SELECT AVG(P)
+FROM R
+GROUP BY Q
+HAVING AVG(P) < 10
+```
+
+a. 0 <br>
+b. 5 <br>
+c. 2 <br>
+d. 1 <br>
+e. none of the above answers is correct.
+
+
+**ANSWER**: a
+
+**EXPLANATION**: Group by Q, where Q=1 everywhere mean we take the whole table as a group. The AVG(P) is 22 which is not <10, so we get 0 rows.
+
+7. For the relation S[A, B, C] below, consider the 3 possible projections on 2 attributes: AB[A, B], BC[B, C], and AC[A, C]. How many extra records does AB * BC * AC contain (i.e., records that don’t appear in S)?
+
+| A | B | C |
+| -- | -- | -- |
+| A1 | B1 | C1 |
+| A1 | B1 | C2 |
+| A2 | B2 | C1 |
+
+a. 0 <br>
+b. 1 <br>
+c. 3 <br>
+d. 2 <br>
+e. none of the above answers is correct.
+
+
+**ANSWER**: e
+
+**EXPLANATION**: 
+
+|AB|BC| AB * BC |AC| (AB * BC) * AC |
+|--|--|--|--|--|
+|<table> <tr><th>A</th><th>B</th></tr><tr> <td>A1</td><td>B1</td></tr> <tr><td>A2</td><td>B2</td></tr> </table>| <table> <tr><th>B</th><th>C</th></tr> <tr><td>B1</td><td>C1</td></tr> <tr><td>B1</td><td>C2</td></tr> <tr><td>B2</td><td>C1</td></tr> </table>| <table> <tr><th>A</th><th>B</th><th>C</th></tr> <tr><td>A1</td><td>B1</td><td>C1</td></tr> <tr><td>A1</td><td>B1</td><td>C2</td></tr> <tr><td>A2</td><td>B2</td><td>C1</td></tr> </table>|  <table> <tr><th>A</th><th>C</th></tr> <tr><td>A1</td><td>C1</td></tr> <tr><td>A1</td><td>C2</td></tr> <tr><td>A2</td><td>C1</td></tr> </table>| <table> <tr><th>A</th><th>B</th><th>C</th></tr> <tr><td>A1</td><td>B1</td><td>C1</td></tr> <tr><td>A1</td><td>B1</td><td>C2</td></tr> <tr><td>A2</td><td>B2</td><td>C1</td></tr> </table>|
+
+9. Of the algorithms below, which one is the best to evaluate a search of the form C = C0, where C is a key?
+a. table scan <br>
+b. index scan <br>
+c. index seek <br>
+d. cross join <br>
+e. hash join
+
+**ANSWER**: c
+
+**EXPLANATION**: 
+Index Seek:
+* searching for a key value K0
+* condition of the form: K = K0
+
+10. When mapping an m:n association to tables, if an association class exists, its attributes:
+a. are added to the table that lies on the m side of the association
+b. are added to the table that lies on the n side of the association
+c. are added to the link table
+d. are not added to any table
+e. none of the above answers is correct.
+
+**ANSWER**: c
+
+**EXPLANATION**: Link table = the relation between them = the "verb"
+
+11. Consider the relation R[A, B, C, D, E] with:
+- the keys {A, E}, {A, B, C}, {A, B, D};
+- the functional dependency {A, C} → {D};
+- no repeating attributes.
+
+a. R is 1NF
+b. R is 2NF
+c. R is 3NF
+d. R is BCNF
+e. none of the above answers is correct.
+
+
+**ANSWER**: a
+
+**EXPLANATION**: no repeating attributes => 1NF. We have the key {A,B,C}, but {A,C} is a subset of the key and {A, C} → {D} => no 2NF.
+
+12. In a DBMS, the buffer manager:
+a. automatically drops clustered indexes
+b. manages available disk space
+c. when necessary, chooses a page in the buffer pool for replacement, based on a replacement policy
+d. maintains the number of current users for every page in the buffer pool
+e. none of the above answers is correct.
+
+
+**ANSWER**: c, d
