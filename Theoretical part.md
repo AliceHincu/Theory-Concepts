@@ -1,3 +1,5 @@
+* (Lecture 12 exercises)[#from-l12]
+* (Wirtten 1 exercises)[#w1]
 # From L12
 ### 1
 In a SELECT query: <br>
