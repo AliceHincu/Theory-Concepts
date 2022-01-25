@@ -121,3 +121,30 @@ Compute a minimal cover
    * S = {A -> B, B -> C, A -> D}   
 
 The minimal cover is {A -> B, B -> C, A -> D}  , which means its closure is the same as the original S.
+
+# Multivalued Dependency
+P.S: a simple functional dependency 𝛼 → 𝛽 means, by definition, that every value 𝑢 of 𝛼 is associated with a unique value 𝑣 for 𝛽
+
+Definition from lecture: **Let 𝑅[𝐴] be a relation with the set of attributes 𝐴 = 𝛼 ∪ 𝛽 ∪ 𝛾. The multi-valued dependency 𝛼 ⇉ 𝛽 (read 𝛼 multi-determines 𝛽) is said to hold over 𝑅 iff each value 𝑢 of 𝛼 is associated with a set of values 𝑣 for 𝛽: 𝛽(𝑢) = {𝑣1, 𝑣2, … , 𝑣𝑛}, and this association holds regardless of the values of 𝛾.**
+
+* Multivalued dependency occurs when two attributes in a table are independent of each other but, both depend on a third attribute.
+* A multivalued dependency consists of at least two attributes that are dependent on a third attribute that's why it always requires at least three attributes.
+Example: Suppose there is a bike manufacturer company which produces two colors(white and black) of each model every year.
+
+| BIKE_MODEL | MANUF_YEAR	| COLOR |
+| -- | -- | -- |
+| M2011	| 2008 | White |
+| M2001	| 2008 | Black |
+| M3001	| 2013 | White |
+| M3001	| 2013 | Black |
+| M4006	| 2017 | White | 
+| M4006	| 2017 | Black |
+
+Here columns COLOR and MANUF_YEAR are dependent on BIKE_MODEL and independent of each other.
+
+In this case, these two columns can be called as multivalued dependent on BIKE_MODEL. The representation of these dependencies is shown below:
+
+BIKE_MODEL  ⇉  MANUF_YEAR  <br>
+BIKE_MODEL  ⇉  COLOR  
+
+This can be read as "BIKE_MODEL multidetermined MANUF_YEAR" and "BIKE_MODEL multidetermined COLOR".
