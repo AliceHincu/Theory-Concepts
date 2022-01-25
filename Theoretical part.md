@@ -493,4 +493,16 @@ d. is distributive with respect to set-difference
 e. none of the above answers is correct.
 
 **ANSWER**: b
+
 **EXPLANATION**: it is applied on a single relation => unary
+
+### Part IV. 
+Let A, B, C, D be 4 relations with schemas A[ID, A1, A2, A3], B[B1, B2], C[C1, C2], D[ID, D1], and E an expression in the relational algebra:
+
+E = (σID = B1 AND A2='exam' AND B2='DB'(A×B)) * (σC1=3 (C×D)) 
+
+![image](https://user-images.githubusercontent.com/53339016/150988252-bc7bce59-aa02-496a-9e74-5bb3ee6c177b.png)
+
+Optimize E and draw the evaluation tree for the optimized version of the expression.
+
+**EXPLANATION**: First, we apply selections on a single table. Then, we apply projections to reduce the nr of columns on all the condition cols (but here it's not the case)
