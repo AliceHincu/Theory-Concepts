@@ -260,6 +260,8 @@ To make the above relation satify the 4th normal form, we can decompose the tabl
 ## 5NF 
 A table is in 5th Normal Form only if it is in 4NF and it cannot be decomposed into any number of smaller tables without loss of data.
 
+From lecture: **Relation 𝑅 is in 5NF if every non-trivial JD is implied by the candidate keys in 𝑅.**
+
 If a table can be recreated by joining multiple tables and each of this table have a subset of the attributes of the table, then the table is in **Join Dependency**. It is a generalization of Multivalued Dependency
 
 That would mean that if by doing a join relation on some relations and the result is equal to our original relation, then it;s not in 5NF.
