@@ -339,3 +339,156 @@ Optimize E and draw the evaluation tree for the optimized version of the express
 ### 21 - SOLUTION
 
 To be continued...
+
+# W1
+### Part I. 
+1. Define the 3rd normal form.
+
+A relation is in 3NF if it's in 2NF and there are no non-prime attributes that functionally tranzitive dependent on any key.
+
+2. Briefly describe a ternary relationship set in the Entity-Relationship model using an example.
+
+A ternary relationship is a relationship type that **involves many to many relationships between three tables.** The University might need to record which teachers taught which subjects in which courses.
+
+### Part III
+1-5. Consider the relational schema S[ID, A, B, C, D, E, F] with the key {ID}. Answer questions 1-5 using the legal instance below:
+
+| ID | A | B | C | D | E | F |
+| -- | -- | -- | -- | -- | -- | -- |
+| t1 | a1 | b2 | Şi abia plecă bătrânul... Ce mai freamăt, ce mai zbucium! | 0 | 1 | 0 |
+| t2 | a1 | b2 | Codrul clocoti de zgomot şi de arme şi de bucium, | 1 | 2 | 1 |
+| t3 | a1 | b3 | Iar la poala lui cea verde mii de capete pletoase, | 0 | 3 | 0 | 
+| t4 | a1 | b3 | Mii de coifuri lucitoare ies din umbra-ntunecoasă; | 2 | 123 | -1 |
+| t5 | a1 | b3 |Călăreţii umplu câmpul şi roiesc după un semn | -1 | 4 | -1 |
+
+1. When executed on the above instance S:
+a. query ```SELECT DISTINCT A, B FROM S``` returns 2 tuples. <br>
+b. query ```SELECT * FROM S WHERE B = 'b2' AND B = 'b3'``` returns 0 tuples. <br>
+c. query ```SELECT * FROM S WHERE B = 'b3' UNION SELECT * FROM S WHERE B = 'b3'``` returns 1 tuple. <br>
+d. query ```SELECT * FROM S WHERE D >= 0 EXCEPT SELECT * FROM S WHERE E <> 4``` returns 0 tuples. <br>
+e. none of the above answers is correct.
+
+**ANSWER**: a,b,d
+
+**EXPLANATION**: a) returns <a1,b2> and <a1,b3> ... b) retur 0 because you can't habe B equal to both b2 and b3 ... c) Union eliminates duplicates, but you will still have 3 rows(t3 t4 t5) ... d) is true because that "except select" will include all rows.
+
+2. Consider projections S1[ID, A, B, C, F] and S2[D, E, F]. The result of the natural join S1 * S2 contains (column order is not important):
+a. only the 5 tuples in S <br>
+b. 7 tuples, out of which 5 are the original tuples in S <br>
+c. no tuples <br>
+d. 9 tuples, out of which 5 are the original tuples in S <br>
+e. none of the above answers is correct. <br>
+
+**ANSWER**: d
+
+**EXPLANATION**: <t1, t1>, <t1, t3>, <t2, t2>, <t3, t1>, <t3, t3>, <t4, t4>, <t4, t5>, <t5, t4>, <t5, t5>. There are 5 tuples like <tx,tx> and 9 in total.
+
+3. How many records does the query below return?
+```sql
+SELECT B, C, COUNT(*)
+FROM S
+GROUP BY B, C
+HAVING D <= 1
+```
+a. 5  <br>
+b. 4  <br>
+c. 3  <br>
+d. 2  <br>
+e. none of the above answers is correct.
+
+**ANSWER**: e
+
+**EXPLANATION**: "Column 'T1.D' is invalid in the HAVING clause because it is not contained in either an aggregate function or the GROUP BY clause."
+
+4. How many records does the query below return?
+```sql
+SELECT *
+FROM S
+WHERE C LIKE 'de%'
+```
+
+a. 3 <br>
+b. 0 <br>
+c. 5 <br>
+d. 1 <br>
+e. none of the above answers is correct.
+
+**ANSWER**: b
+
+**EXPLANATION**: There isn't any column that starts with "de"
+
+5. Regarding the functional dependencies of S:
+a. at least one of the following dependencies is not satisfied by the instance: {ID, A} → {D, E}, {B} → {A}, {A, B} → {D} <br>
+b. by examining the instance, we can conclude that at least one of the following dependencies is specified on the schema S: {A} → {D, E}, {B} → {A}, {A, B} → {D} <br>
+c. at least two of the following dependencies are not satisfied by the instance: {C} → {A}, {A} → {C}, {E} → {B}, {F} → {A} <br>
+d. by examining the instance, we can conclude that at least two of the following dependencies are specified on the schema S: {C} → {A}, {A} → {C}, {E} → {B}, {F} → {A} <br>
+e. none of the above answers is correct.
+
+**ANSWER**: a
+
+**EXPLANATION**: a) {A, B} → {D} is not satisfied (<a1, b3>) ... b) and d) are never true, because with an instance  we can't conclude the schema. c) only {a}->{c) is false.
+
+6. A data description model can be used to describe:
+a. the structure of the data <br>
+b. IF statements <br>
+c. the relationships with other data <br>
+d. the consistency constraints <br>
+e. none of the above answers is correct. <br>
+
+**ANSWER**: a, c, d.
+
+**EXPLANATION**: data description model: set of concepts and rules used to model data; such concepts describe: the structure of the data, consistency constraints, relationships with other data
+
+7. In a DBMS, the buffer manager:
+a. manages disk space <br>
+b. brings pages from the disk into main memory <br>
+c. monitors lock requests <br>
+d. produces an efficient execution plan for query evaluation <br>
+e. none of the above answers is correct. 
+
+**ANSWER**: b
+
+**EXPLANATION**: disk space manager is at a). lock manager ar c) .. d) optimizer.
+
+8. A SELECT statement:
+a. can contain a HAVING clause only if it contains a WHERE clause <br>
+b. can contain a WHERE clause only if it contains a HAVING clause <br>
+c. can contain a HAVING clause only if it contains an ORDER BY clause <br>
+d. can contain a GROUP BY clause only if it contains a HAVING clause <br>
+e. none of the above answers is correct.
+
+**ANSWER**: e
+
+**EXPLANATION**: Be aware!! You can have "having" without "group by" (ex: ```SELECT SUM(D) FROM T1 HAVING SUM(D) <= 3```), because it operates on the table as a group
+
+9. Let R[ID1, ID2, ID3, A, B, C, D, E, F, G] be a relational schema with no repeating attributes. The keys of R are {ID1, ID2, ID3} and {A, B}. The following dependencies hold: {ID1, ID2} → {C} and {A} → {G}. R is:
+a. 1NF <br>
+b. 2NF <br>
+c. 3NF <br>
+d. BCNF <br>
+e. none of the above answers is correct.
+
+**ANSWER**: a
+
+**EXPLANATION**: "no repeating attributes" means 1NF.   {ID1, ID2, ID3} is a key , but  {ID1, ID2} → {C} and {ID1, ID2} it's a subset. So no 2NF.
+
+10. On a magnetic disk, disk access time includes:
+a. lunch time <br>
+b. seek time <br>
+c. rotational delay <br>
+d. transfer time <br>
+e. none of the above answers is correct.
+
+**ANSWER**: b, c, d
+
+**EXPLANATION**: "no repeating attributes" means 1NF.   {ID1, ID2, ID3} is a key , but  {ID1, ID2} → {C} and {ID1, ID2} it's a subset. So no 2NF.
+
+12. The projection operator π in the relational algebra:
+a. is a binary operator
+b. is a unary operator
+c. is a ternary operator
+d. is distributive with respect to set-difference
+e. none of the above answers is correct.
+
+**ANSWER**: b
+**EXPLANATION**: it is applied on a single relation => unary
