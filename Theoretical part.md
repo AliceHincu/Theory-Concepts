@@ -626,7 +626,7 @@ d. 2 <br>
 e. none of the above answers is correct.
 
 
-**ANSWER**: e
+**ANSWER**: a
 
 **EXPLANATION**: 
 
@@ -671,9 +671,9 @@ d. R is BCNF
 e. none of the above answers is correct.
 
 
-**ANSWER**: a
+**ANSWER**: a,b,c
 
-**EXPLANATION**: no repeating attributes => 1NF. We have the key {A,B,C}, but {A,C} is a subset of the key and {A, C} → {D} => no 2NF.
+**EXPLANATION**: no repeating attributes => 1NF. We have the key {A,B,C}, and we can see that {A,C} is a subset of the key and {A, C} → {D}, but D is also a prime attribute => 2NF. The are no non-prime attributes that are tranzitively dependent on the keys, so it's also 3NF. BCNF: Every determinant is a key, but {A, C} is not a key, it's a subset, so it's not BCNF.
 
 12. In a DBMS, the buffer manager:
 a. automatically drops clustered indexes
@@ -684,3 +684,21 @@ e. none of the above answers is correct.
 
 
 **ANSWER**: c, d
+
+### PART IV
+IV. Let A, B, and C be 3 relations with schemas A[AID, A1, A2, A3], B[BID, B1, B2, B3], C[CID, C1, C2, C3], and E an expression in the relational algebra:
+
+E = σA.AID = B.B1 AND B.BID=C.C2 AND C.C3=5 (Π{A.AID, A.A1, A.A2, B.BID, B.B1, C.C2, C.C3}(A×B×C))
+
+Optimize E and draw the evaluation tree for the optimized version of the expression.
+
+**ANSWER**:
+![image](https://user-images.githubusercontent.com/53339016/151014504-72d97417-0c5a-4287-87bb-4fc05dc07a68.png)
+
+How to solve:
+
+you go backwords. you start with the 3 rectangles, A,B,C. You do the selection first and then the projection because:
+* sigma reduces the nr of rows
+* pi reduces the number of columns, and you need to retain attriibutes that will be required later.
+
+Then just do the joins.
