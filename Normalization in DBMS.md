@@ -245,8 +245,8 @@ Well the two records for student with s_id 1, will give rise to two more records
 | -- | -- | -- |
 | 1	| Science | Cricket |
 | 1	| Maths	| Hockey |
-| 2	| Science	| Hockey |
-| 2	| Maths	| Cricket |
+| 1	| Science	| Hockey |
+| 1	| Maths	| Cricket |
 
 And, in the table above, there is no relationship between the columns course and hobby. They are independent of each other. So there is multi-value dependency, which leads to un-necessary repetition of data and other anomalies as well.
 
